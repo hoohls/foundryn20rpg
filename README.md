@@ -1,229 +1,234 @@
-# Sistema N20 RPG para Foundry VTT
+# Sistema Clube dos Taberneiros para Foundry VTT
 
-Um sistema completo e aprimorado para RPG de mesa no Foundry VTT, baseado em 4 atributos principais e sistema de rolagem 2d6 + atributo vs dificuldade. Inclui sistema de tokens avançado, barras de status, ferramentas de mestre e interface rica similar ao Ordem Paranormal.
+Um sistema completo para Foundry Virtual Tabletop baseado no RPG Clube dos Taberneiros, focado em narrativa e simplicidade com mecânicas 2d6.
 
-## 🎲 Características do Sistema
+## 📋 Características
 
-### Atributos Principais
-- **Físico**: Força, resistência e capacidade física
-- **Mental**: Inteligência, conhecimento e capacidade mágica
-- **Social**: Carisma, persuasão e interação social
-- **Ação**: Agilidade, destreza e precisão
+### ⚡ Sistema 2d6 Simplificado
+- **Testes simples:** 2d6 + Atributo + Habilidade vs ND
+- **4 Atributos:** Físico, Ação, Mental, Social
+- **6 Níveis de Dificuldade:** Trivial (5) a Heroica (15)
+- **Progressão natural:** Do nível 1 ao 10
 
-### Sistema de Rolagem
-- **Teste básico**: 2d6 + Atributo vs Dificuldade
-- **Combate**: 2d6 + Atributo apropriado vs Defesa do alvo
-- **Defesa**: 10 + Ação + Armadura
-- **Dano**: Reduzido pela Proteção da armadura
+### 🎭 Criação de Personagem Completa
+- **4 Classes:** Guerreiro, Mago, Ladino, Diplomata
+- **6 Raças:** Humano, Elfo, Anão, Halfling, Tiefling, Goblin
+- **Sistema de Antecedentes** para personalização
+- **Cálculo automático** de PV, PM e Defesa
 
-### ⚡ Recursos Avançados
+### ⚔️ Sistema de Combate Tático
+- **Iniciativa 2d6 + Ação**
+- **Defesa passiva:** 10 + Ação + Armadura + Escudo
+- **Críticos e falhas** especiais
+- **Condições de status** completas
 
-#### Sistema de Tokens
-- **Barras de Status**: HP/MP visíveis nos tokens (similar ao Brawl Bar)
-- **Drag & Drop**: Arraste itens, magias e habilidades para a hotbar
-- **Atualização Automática**: Barras atualizadas em tempo real
-- **Configuração Flexível**: Personalize as barras para cada tipo de personagem
+### 🔮 Sistema de Magia Robusto
+- **6 Escolas de Magia:** Evocação, Abjuração, Transmutação, Ilusão, Divinação, Necromancia
+- **6 Níveis de Magia:** Do básico ao épico
+- **Sistema PM:** Mental × 2 + 5
+- **Magias superiores** para campanhas épicas
 
-#### Interface Rica
-- **Design Medieval**: Tema visual inspirado em pergaminhos antigos
-- **Controles Intuitivos**: Botões +/- para recursos, controles de descanso
-- **Abas Organizadas**: Inventário, magias, habilidades, efeitos e biografia
-- **Barras de Progresso**: Visualização clara de HP, MP e experiência
+### 🛡️ Equipamentos Expandidos
+- **150+ itens diferentes** organizados por nível
+- **Armas, armaduras, itens mágicos** e poções
+- **Sistema de progressão** com níveis mínimos
+- **Poções de PM** para magos
 
-#### Ferramentas de Mestre
-- **Ferramentas de Mapa**: Configuração de cena, marcadores, efeitos ambientais
-- **Ferramentas de Combate**: Configuração de encontros, aplicação de condições
-- **Ferramentas Narrativas**: Entradas de diário, mensagens narrativas
-- **Gerenciamento de Sessão**: Início/fim de sessão, distribuição de XP
-- **Utilitários**: Encontros aleatórios, geração de tesouro, descanso em massa
+## 🚀 Instalação
 
-#### Sistema de Efeitos
-- **Efeitos Temporários**: Aplicação e gerenciamento de efeitos ativos
-- **Integração com Combate**: Efeitos aplicados automaticamente
-- **Encumbrance**: Sistema de carga automático
-- **Gestão de Equipamentos**: Equipar/desequipar com efeitos automáticos
+### Método 1: Instalação Automática (Recomendado)
+1. Abra o Foundry VTT
+2. Vá para "Game Systems"
+3. Clique em "Install System"
+4. Cole a URL do manifesto: `[URL_DO_MANIFESTO]`
+5. Clique em "Install"
 
-### Recursos do Sistema
-- **Pontos de Vida**: Físico + 1d10
-- **Pontos de Magia**: Mental × 2 (apenas se Mental > 0)
-- **Sistema de Experiência**: Progressão por pontos de experiência
-- **Equipamentos**: Armas, armaduras e itens diversos
-- **Magias**: Sistema de escolas mágicas com custo em PM
-- **Habilidades**: Habilidades especiais ativas e passivas
-
-## 🏗️ Instalação
-
-### Instalação via Manifest (Recomendado)
-
-**Para Foundry VTT v11.300+, v12 e v13:**
-1. No Foundry VTT, vá para "Game Systems"
-2. Clique em "Install System"
-3. Cole o URL do manifest: 
-   ```
-   https://raw.githubusercontent.com/seu-usuario/sistema-n20-rpg/main/system.json
-   ```
-4. Clique em "Install"
-
-**Para Foundry VTT v10.291+ (versões mais antigas):**
-1. No Foundry VTT, vá para "Game Systems"
-2. Clique em "Install System"
-3. Cole o URL do manifest alternativo: 
-   ```
-   https://raw.githubusercontent.com/seu-usuario/sistema-n20-rpg/main/system-legacy.json
-   ```
-4. Clique em "Install"
-
-### Instalação via Git
-1. Clone o repositório:
-   ```bash
-   git clone https://github.com/seu-usuario/sistema-n20-rpg.git
-   ```
-2. Copie a pasta para `Data/systems/` do seu Foundry VTT
-3. Reinicie o Foundry VTT
-4. Crie um novo mundo e selecione "Sistema N20 RPG" como sistema
-
-### Instalação Manual
-1. Baixe o arquivo ZIP: [Download](https://github.com/seu-usuario/sistema-n20-rpg/archive/refs/heads/main.zip)
-2. Extraia na pasta `Data/systems/` do seu Foundry VTT
-3. Renomeie a pasta para `sistema-n20-rpg`
+### Método 2: Instalação Manual
+1. Baixe o arquivo ZIP do sistema
+2. Extraia na pasta `Data/systems/` do Foundry
+3. Renomeie a pasta para `clube-dos-taberneiros`
 4. Reinicie o Foundry VTT
 
-## 🎮 Como Usar
+## 📖 Como Usar
+
+### Criando um Mundo
+1. Crie um novo mundo no Foundry
+2. Selecione "Clube dos Taberneiros" como sistema
+3. Configure as opções desejadas
+4. Inicie o mundo
 
 ### Criando Personagens
-1. Crie um novo ator do tipo "Personagem"
-2. Preencha as informações básicas (nome, raça, classe, etc.)
-3. Distribua os pontos de atributo conforme desejar
-4. Adicione equipamentos, magias e habilidades
-5. Complete a biografia e personalidade
+1. Crie um novo Ator do tipo "Personagem"
+2. Preencha os atributos básicos (Físico, Ação, Mental, Social)
+3. Escolha raça, classe e antecedente
+4. Os valores de PV, PM e Defesa são calculados automaticamente
+5. Adicione habilidades e equipamentos dos compêndios
 
-### Usando Tokens
-- Configure as barras de status nos tokens (HP/MP)
-- Use drag & drop para adicionar itens à hotbar
-- Monitore status em tempo real durante o combate
-
-### Ferramentas de Mestre
-- Acesse o menu "Ferramentas de Campanha" no painel lateral
-- Configure mapas com efeitos ambientais
-- Gerencie encontros e combates
-- Aplique efeitos e condições em massa
+### Usando Compêndios
+O sistema inclui compêndios com:
+- **Habilidades:** Combate, mágicas, sociais e gerais
+- **Magias:** Organizadas por escola e nível
+- **Armas:** Corpo a corpo e à distância
+- **Armaduras:** Leves, médias e pesadas
+- **Equipamentos:** Itens gerais e aventura
+- **Poções:** Cura, PM e efeitos especiais
 
 ### Realizando Testes
-- Clique nos botões de dados ao lado dos atributos
-- Use os botões de teste rápido para dificuldades pré-definidas
-- O sistema calculará automaticamente o resultado
+1. Clique no atributo ou habilidade desejada
+2. O sistema rola 2d6 + modificadores automaticamente
+3. Compare com a dificuldade estabelecida pelo Mestre
+4. Interprete o resultado (sucesso/falha/crítico)
 
-### Combate
-- Use as armas para atacar (botão de ataque)
-- Role dano com o botão específico
-- O sistema calcula automaticamente defesa e proteção
+### Sistema de Combate
+1. **Iniciativa:** Automática com 2d6 + Ação
+2. **Ataques:** Clique na arma para rolar ataque
+3. **Defesa:** Calculada automaticamente
+4. **Dano:** Rolado automaticamente em caso de acerto
+5. **Condições:** Aplicadas manualmente conforme necessário
 
-### Magias
-- Clique no ícone de magia para conjurar
-- O sistema reduz automaticamente os pontos de magia
-- Informações aparecem no chat
+### Conjurando Magias
+1. Clique na magia desejada na aba "Magias"
+2. O sistema verifica se há PM suficientes
+3. Rola teste de conjuração automaticamente
+4. Aplica efeitos conforme descrição da magia
+5. Deduz PM gastos automaticamente
 
-## 📁 Estrutura do Sistema
+## 🎯 Níveis de Dificuldade
 
-```
-sistema-n20-rpg/
-├── system.json              # Manifesto do sistema
-├── template.json            # Estrutura dos dados
-├── README.md               # Este arquivo
-├── LICENSE.txt             # Licença
-├── module/
-│   ├── sistema-n20-rpg.mjs # Arquivo principal
-│   ├── documents/
-│   │   ├── actor.mjs       # Classe do ator
-│   │   └── item.mjs        # Classe do item
-│   ├── sheets/
-│   │   ├── actor-sheet.mjs # Ficha do ator
-│   │   └── item-sheet.mjs  # Ficha do item
-│   └── helpers/
-│       ├── effects.mjs     # Sistema de efeitos
-│       ├── handlebars-helpers.mjs # Helpers do Handlebars
-│       └── campaign-tools.mjs # Ferramentas de campanha
-├── templates/
-│   ├── actor/              # Templates dos atores
-│   │   ├── actor-personagem-sheet.html
-│   │   ├── actor-npc-sheet.html
-│   │   ├── actor-monstro-sheet.html
-│   │   └── parts/          # Templates parciais
-│   └── item/               # Templates dos itens
-├── css/
-│   └── sistema-n20-rpg.css # Estilos do sistema
-└── lang/
-    └── pt-BR.json          # Traduções em português
-```
+| Dificuldade | ND | Quando Usar |
+|-------------|----|-----------| 
+| **Trivial** | 5 | Ações básicas, dar confiança |
+| **Fácil** | 7 | Tarefas simples, momentum positivo |
+| **Moderada** | 9 | Padrão da maioria dos testes |
+| **Difícil** | 11 | Desafios sérios, especialização |
+| **Muito Difícil** | 13 | Feitos impressionantes |
+| **Heroica** | 15 | Momentos épicos |
 
-## 🚀 Novas Funcionalidades (v2.0.0)
+## ⚙️ Configurações
 
-### Sistema de Tokens
-- Barras de status HP/MP nos tokens
-- Drag & drop para hotbar
-- Atualização em tempo real
-- Configuração personalizada
+### Tokens
+- **Barra 1:** Pontos de Vida (PV)
+- **Barra 2:** Pontos de Magia (PM)
+- **Configuração automática** para novos tokens
 
-### Interface Aprimorada
-- Design medieval renovado
-- Controles intuitivos para recursos
-- Abas organizadas e funcionais
-- Barras de progresso visuais
+### Iniciativa
+- **Fórmula:** 2d6 + Ação
+- **Ordem decrescente** (maior age primeiro)
 
-### Ferramentas de Mestre
-- Kit completo de ferramentas de campanha
-- Configuração avançada de mapas
-- Gerenciamento de combate e encontros
-- Ferramentas narrativas e de sessão
+### Chat
+- **Rolagens automáticas** com resultados formatados
+- **Críticos destacados** em cores
+- **Falhas críticas** com efeitos especiais
 
-### Sistema de Efeitos
-- Efeitos temporários e permanentes
-- Integração com combate
-- Gestão automática de equipamentos
-- Sistema de encumbrance
+## 🔧 Personalização
 
-## 🤝 Contribuindo
+### Modificando Compêndios
+1. Importe itens dos compêndios para o mundo
+2. Edite conforme necessário
+3. Use como base para novos itens
 
-Este sistema foi desenvolvido para ser completo e funcional. Se você quiser contribuir:
+### Criando Novos Itens
+1. Use os templates existentes como base
+2. Preencha todos os campos obrigatórios
+3. Teste funcionalidade antes de distribuir
 
-1. Faça um fork do projeto
-2. Crie uma branch para sua funcionalidade
-3. Implemente as melhorias
-4. Teste no Foundry VTT
-5. Envie um pull request
+### Regras da Casa
+- Modifique NDs conforme seu estilo de jogo
+- Ajuste custos de PM para balanceamento
+- Crie novas habilidades usando os templates
 
-## 📞 Suporte
+## 🐛 Solução de Problemas
 
-### Problemas de Compatibilidade
-Se você está vendo erros de compatibilidade, consulte: **[COMPATIBILIDADE.md](COMPATIBILIDADE.md)**
+### Problemas Comuns
 
-### Outros Problemas
-Para dúvidas, problemas ou sugestões:
-- Crie uma issue no GitHub
-- Contate o desenvolvedor
-- Participe da comunidade no Discord
+**Sistema não aparece na lista:**
+- Verifique se o arquivo `system.json` está presente
+- Confirme que a pasta está em `Data/systems/`
+- Reinicie o Foundry VTT
 
-## 📜 Licença
+**Fichas não carregam:**
+- Verifique se todos os arquivos de template estão presentes
+- Confirme permissões de arquivo
+- Verifique console do navegador para erros
 
-Este projeto está licenciado sob a licença MIT. Veja o arquivo LICENSE.txt para mais detalhes.
+**Compêndios vazios:**
+- Reimporte os compêndios
+- Verifique se os arquivos `.db` estão presentes
+- Recrie o mundo se necessário
 
-## 🎯 Roadmap
+**Cálculos automáticos não funcionam:**
+- Verifique se o JavaScript está habilitado
+- Confirme que não há conflitos com outros módulos
+- Recarregue a página
 
-- [ ] Sistema de condições visuais
-- [ ] Editor de mapas integrado
-- [ ] Sistema de progressão avançado
-- [ ] Integração com outros módulos
-- [ ] Ferramentas de automação
+## 📚 Recursos Adicionais
 
-## 🏆 Créditos
+### Documentação Completa
+- **Livro do Jogador:** Manual completo com todas as regras
+- **Escudo do Mestre:** Referência rápida para mestres
+- **Exemplos de Jogo:** Situações práticas explicadas
 
-Desenvolvido para a comunidade brasileira de RPG de mesa, compatível com Foundry VTT v11+.
+### Suporte
+- **Issues:** Reporte bugs e sugestões no GitHub
+- **Discussões:** Participe da comunidade
+- **Atualizações:** Acompanhe novas versões
 
-**Agradecimentos especiais:**
-- Comunidade Foundry VTT Brasil
-- Desenvolvedores do sistema Ordem Paranormal
-- Beta testers e colaboradores
+## 📄 Licença
+
+Este sistema é baseado no RPG Clube dos Taberneiros e é distribuído sob licença [ESPECIFICAR LICENÇA].
+
+## 🙏 Créditos
+
+- **Sistema Original:** Clube dos Taberneiros
+- **Implementação Foundry:** Manus AI
+- **Ícones:** Font Awesome e Game Icons
+- **Comunidade:** Foundry VTT Community
 
 ---
 
-**Sistema N20 RPG** - A evolução completa para suas mesas de RPG! 🎲⚔️ 
+**Versão:** 2.0.0 🚀  
+**Compatibilidade:** Foundry VTT v11-v13  
+**Última Atualização:** Dezembro 2024
+
+## 🎉 **NOVO NA VERSÃO 2.0.0**
+
+### ⚡ **Sistema de Rolagem Revolucionário**
+- **Automação completa** com comparação automática de ND
+- **Críticos visuais** (12 = Sucesso Crítico, 2 = Falha Crítica)
+- **Margem de sucesso/falha** calculada automaticamente
+- **Animações especiais** para resultados críticos
+
+### 🎮 **Interface Completamente Redesenhada**
+- **Tooltips informativos** em todos os elementos
+- **Indicadores visuais** de saúde e status
+- **Botões de rolagem** integrados aos atributos
+- **Botões de descanso** rápido e longo
+- **Barras de recursos visuais** para PV, PM e carga
+
+### 🔮 **Magia e Combate Inteligentes**
+- **Gasto automático de PM** ao conjurar magias
+- **Verificação automática** de munição e equipamentos
+- **Dano crítico dobrado** automaticamente
+- **Efeitos especiais** para conjurações críticas
+
+### 📦 **Drag & Drop Aprimorado**
+- **Verificação automática** de pré-requisitos
+- **Modificações automáticas** baseadas no personagem
+- **Bônus de classe** aplicados automaticamente
+- **Confirmações inteligentes** para itens problemáticos
+
+### 🔮 **5 Macros Pré-definidas**
+1. **Teste de Atributo** - Dialog completo para testes
+2. **Iniciativa Rápida** - Para todos os tokens selecionados
+3. **Descanso Rápido** - Recuperação automática de recursos
+4. **Aplicar Dano** - Sistema de dano/cura em massa
+5. **Status do Grupo** - Tabela visual com status de todos
+
+### 🛡️ **Automação Total**
+- **Cálculos automáticos** de PV, PM e Defesa
+- **Atualização automática** baseada em equipamentos
+- **Validação robusta** de todos os valores
+- **Compatibilidade 100%** com mundos existentes
+
+Para mais informações, visite: [LINK_DO_PROJETO]
+

@@ -1,137 +1,176 @@
 {
   "Actor": {
-    "types": ["personagem", "npc", "monstro"],
+    "types": ["personagem", "npc", "criatura"],
     "templates": {
       "base": {
-        "biografia": {
-          "idade": "",
-          "raca": "",
-          "classe": "",
-          "alinhamento": "",
-          "nivel": 1,
-          "jogador": "",
-          "descricaoFisica": "",
-          "personalidade": "",
-          "historia": "",
-          "objetivos": "",
-          "anotacoes": ""
+        "pv": {
+          "value": 10,
+          "max": 10
         },
-        "atributos": {
-          "fisico": {
-            "valor": 10,
-            "mod": 0
-          },
-          "mental": {
-            "valor": 10,
-            "mod": 0
-          },
-          "social": {
-            "valor": 10,
-            "mod": 0
-          },
-          "acao": {
-            "valor": 10,
-            "mod": 0
-          }
+        "pm": {
+          "value": 5,
+          "max": 5
         },
-        "combate": {
-          "pv": 20,
-          "pvMax": 20,
-          "pm": 0,
-          "pmMax": 0,
-          "defesa": 10,
-          "protecao": 0,
+        "defesa": {
+          "value": 10,
+          "base": 10,
           "armadura": 0,
-          "pontos_experiencia": 0
+          "escudo": 0,
+          "outros": 0
         },
-        "recursos": {
-          "moedas": {
-            "ouro": 0,
-            "prata": 0,
-            "cobre": 0
-          }
+        "nivel": {
+          "value": 1,
+          "xp": 0,
+          "xpProximo": 10
+        },
+        "detalhes": {
+          "biografia": "",
+          "aparencia": "",
+          "personalidade": "",
+          "historia": ""
+        }
+      },
+      "atributos": {
+        "fisico": {
+          "value": 4,
+          "mod": 0
+        },
+        "acao": {
+          "value": 4,
+          "mod": 0
+        },
+        "mental": {
+          "value": 4,
+          "mod": 0
+        },
+        "social": {
+          "value": 4,
+          "mod": 0
         }
       }
     },
     "personagem": {
-      "templates": ["base"],
-      "habilidades_especiais": []
+      "templates": ["base", "atributos"],
+      "raca": "",
+      "classe": "",
+      "antecedente": "",
+      "recursos": {
+        "moedas": {
+          "cobre": 0,
+          "prata": 0,
+          "ouro": 0
+        },
+        "carga": {
+          "atual": 0,
+          "max": 40
+        }
+      },
+      "progressao": {
+        "pontosAtributo": 0,
+        "pontosHabilidade": 0
+      }
     },
     "npc": {
-      "templates": ["base"],
-      "tipo": "npc",
-      "comportamento": "neutro",
-      "importancia": "menor"
+      "templates": ["base", "atributos"],
+      "tipo": "humanoid",
+      "categoria": "plebeu",
+      "profissao": "",
+      "motivacao": "",
+      "segredos": ""
     },
-    "monstro": {
+    "criatura": {
       "templates": ["base"],
-      "tipo": "monstro",
-      "nd": 1,
-      "tamanho": "médio",
-      "tipo_criatura": "humanoide",
-      "instinto": "neutro"
+      "tipo": "beast",
+      "tamanho": "medium",
+      "habitat": "",
+      "comportamento": "",
+      "tesouro": ""
     }
   },
   "Item": {
-    "types": ["arma", "armadura", "magia", "habilidade", "item"],
+    "types": ["habilidade", "magia", "arma", "armadura", "escudo", "equipamento", "pocao"],
     "templates": {
       "base": {
         "descricao": "",
-        "equipado": false,
-        "quantidade": 1
-      },
-      "equipamento": {
+        "preco": {
+          "valor": 0,
+          "moeda": "MP"
+        },
         "peso": 0,
-        "preco": 0,
-        "raridade": "comum"
+        "raridade": "comum",
+        "nivelMinimo": 1
       },
-      "fisico": {
-        "durabilidade": 100,
-        "durabilidadeMax": 100,
-        "material": "ferro"
+      "equipavel": {
+        "equipado": false,
+        "slot": ""
       }
-    },
-    "arma": {
-      "templates": ["base", "equipamento", "fisico"],
-      "tipo": "arma",
-      "dano": "1d6",
-      "alcance": "Corpo a corpo",
-      "categoria": "simples",
-      "propriedades": []
-    },
-    "armadura": {
-      "templates": ["base", "equipamento", "fisico"],
-      "tipo": "armadura",
-      "protecao": 1,
-      "penalidade": 0,
-      "categoria": "leve",
-      "cobertura": "torso"
-    },
-    "magia": {
-      "templates": ["base"],
-      "tipo": "magia",
-      "escola": "evocacao",
-      "custo": 1,
-      "alcance": "Toque",
-      "duracao": "Instantânea",
-      "componentes": "verbal",
-      "efeito": ""
     },
     "habilidade": {
       "templates": ["base"],
-      "tipo": "habilidade",
-      "categoria": "passiva",
+      "categoria": "geral",
+      "atributo": "fisico",
+      "bonus": 0,
       "prerequisitos": "",
-      "usos": 0,
-      "usosAtual": 0,
-      "fonte": "classe"
+      "efeito": "",
+      "passiva": false
     },
-    "item": {
-      "templates": ["base", "equipamento"],
-      "tipo": "item",
-      "categoria": "equipamento",
+    "magia": {
+      "templates": ["base"],
+      "escola": "evocacao",
+      "nivel": 1,
+      "custoMP": 1,
+      "alcance": "toque",
+      "duracao": "instantaneo",
+      "componentes": {
+        "verbal": true,
+        "somatico": true,
+        "material": false,
+        "materialDescricao": ""
+      },
+      "limitacao": "",
+      "dano": "",
+      "nd": 0
+    },
+    "arma": {
+      "templates": ["base", "equipavel"],
+      "categoria": "corpo-a-corpo",
+      "tipo": "leve",
+      "dano": "1d6",
+      "alcance": "1.5m",
+      "propriedades": [],
+      "municao": 0,
+      "municaoMax": 0
+    },
+    "armadura": {
+      "templates": ["base", "equipavel"],
+      "categoria": "leve",
+      "protecao": 0,
+      "defesa": 0,
+      "penalidades": {
+        "furtividade": 0,
+        "acao": 0
+      }
+    },
+    "escudo": {
+      "templates": ["base", "equipavel"],
+      "defesa": 1,
+      "propriedades": []
+    },
+    "equipamento": {
+      "templates": ["base"],
+      "categoria": "geral",
+      "quantidade": 1,
       "consumivel": false,
       "efeito": ""
+    },
+    "pocao": {
+      "templates": ["base"],
+      "tipo": "cura",
+      "efeito": "",
+      "duracao": "instantaneo",
+      "limitacao": "",
+      "recuperacao": ""
     }
   }
-} 
+}
+

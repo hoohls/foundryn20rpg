@@ -1,0 +1,1294 @@
+/* ===== CLUBE DOS TABERNEIROS SYSTEM STYLES - VERSÃO RESPONSIVA ===== */
+
+/* Variáveis CSS Aprimoradas */
+:root {
+  --cdt-primary: #2c5aa0;
+  --cdt-secondary: #8b4513;
+  --cdt-accent: #d4af37;
+  --cdt-background: #f5f5dc;
+  --cdt-text: #2f2f2f;
+  --cdt-border: #8b7355;
+  --cdt-success: #228b22;
+  --cdt-danger: #dc143c;
+  --cdt-warning: #ff8c00;
+  --cdt-critical: #ffd700;
+  --cdt-failure: #b22222;
+  --cdt-light-bg: #ffffff;
+  --cdt-shadow: rgba(0, 0, 0, 0.2);
+  
+  /* Variáveis de responsividade */
+  --cdt-header-height: 70px;
+  --cdt-tabs-height: 28px;
+  --cdt-content-gap: 1rem;
+  --cdt-border-radius: 8px;
+  --cdt-transition: all 0.3s ease;
+}
+
+/* ===== BREAKPOINTS RESPONSIVOS ===== */
+/* Mobile First Design */
+
+/* Base styles para mobile (320px+) */
+.clube-dos-taberneiros {
+  font-family: "Roboto", sans-serif;
+  background: var(--cdt-background);
+  color: var(--cdt-text);
+  border: 2px solid var(--cdt-border);
+  border-radius: var(--cdt-border-radius);
+  min-width: 320px;
+  display: flex;
+  flex-direction: column;
+  min-height: 400px;
+  position: relative;
+}
+
+.clube-dos-taberneiros .window-content {
+  background: var(--cdt-background);
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* ===== CABEÇALHO RESPONSIVO FIXO ===== */
+.clube-dos-taberneiros .sheet-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.5rem;
+  background: linear-gradient(135deg, var(--cdt-primary), var(--cdt-secondary));
+  color: white;
+  border-radius: var(--cdt-border-radius) var(--cdt-border-radius) 0 0;
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  margin: 0;
+  border-bottom: 2px solid var(--cdt-border);
+}
+
+.clube-dos-taberneiros .profile-img {
+  border: 2px solid var(--cdt-accent);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: var(--cdt-transition);
+  align-self: center;
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+}
+
+.clube-dos-taberneiros .profile-img:hover {
+  transform: scale(1.05);
+}
+
+.clube-dos-taberneiros .header-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.clube-dos-taberneiros .charname {
+  text-align: center;
+}
+
+.clube-dos-taberneiros .charname input {
+  font-size: 1.1rem;
+  font-weight: bold;
+  background: transparent;
+  border: none;
+  color: white;
+  width: 100%;
+  text-align: center;
+  padding: 0.25rem;
+}
+
+.clube-dos-taberneiros .charname input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* ===== CAMPOS DE RECURSOS RESPONSIVOS ===== */
+.clube-dos-taberneiros .resource-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+}
+
+.clube-dos-taberneiros .resource {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.clube-dos-taberneiros .resource-label {
+  font-weight: bold;
+  color: white;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.clube-dos-taberneiros .resource input,
+.clube-dos-taberneiros .resource select {
+  padding: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--cdt-text);
+  font-size: 0.9rem;
+}
+
+/* ===== NAVEGAÇÃO DE ABAS RESPONSIVA FIXA ===== */
+.clube-dos-taberneiros .sheet-tabs {
+  background: var(--cdt-primary);
+  border-radius: 0;
+  margin: 0;
+  overflow-x: auto;
+  display: flex;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  flex-shrink: 0;
+  position: sticky;
+  top: var(--cdt-header-height);
+  z-index: 99;
+  border-bottom: 1px solid var(--cdt-border);
+  height: 28px;
+}
+
+.clube-dos-taberneiros .sheet-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.clube-dos-taberneiros .sheet-tabs .item {
+  background: transparent;
+  color: white;
+  border: none;
+  padding: 0.2rem 0.4rem;
+  transition: var(--cdt-transition);
+  cursor: pointer;
+  flex: 1;
+  text-align: center;
+  white-space: nowrap;
+  min-width: 60px;
+  font-size: 0.65rem;
+  line-height: 1.2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.clube-dos-taberneiros .sheet-tabs .item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.clube-dos-taberneiros .sheet-tabs .item.active {
+  background: var(--cdt-accent);
+  color: var(--cdt-text);
+  font-weight: bold;
+}
+
+/* ===== CORPO DA FICHA RESPONSIVO COM SCROLL ===== */
+.clube-dos-taberneiros .sheet-body {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0.5rem;
+  background: var(--cdt-background);
+}
+
+.clube-dos-taberneiros .sheet-body .tab {
+  display: none;
+  animation: fadeIn 0.3s ease-in;
+  min-height: fit-content;
+  padding-bottom: 1rem;
+}
+
+.clube-dos-taberneiros .sheet-body .tab.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== GRID PRINCIPAL RESPONSIVO ===== */
+.clube-dos-taberneiros .grid {
+  display: grid;
+  gap: var(--cdt-content-gap);
+}
+
+.clube-dos-taberneiros .grid-2col {
+  grid-template-columns: 1fr;
+}
+
+/* ===== SEÇÕES DE CONTEÚDO ===== */
+.clube-dos-taberneiros .atributos,
+.clube-dos-taberneiros .recursos,
+.clube-dos-taberneiros .moedas {
+  background: white;
+  border: 1px solid var(--cdt-border);
+  border-radius: var(--cdt-border-radius);
+  padding: 0.75rem;
+  box-shadow: 0 2px 4px var(--cdt-shadow);
+}
+
+.clube-dos-taberneiros .atributos h3,
+.clube-dos-taberneiros .recursos h3,
+.clube-dos-taberneiros .moedas h3 {
+  margin: 0 0 0.5rem 0;
+  color: var(--cdt-primary);
+  font-size: 1rem;
+  text-align: center;
+  border-bottom: 2px solid var(--cdt-primary);
+  padding-bottom: 0.25rem;
+}
+
+/* ===== ATRIBUTOS RESPONSIVOS ===== */
+.clube-dos-taberneiros .atributo-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.clube-dos-taberneiros .atributo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.375rem;
+  border: 1px solid var(--cdt-border);
+  border-radius: var(--cdt-border-radius);
+  background: var(--cdt-background);
+  transition: var(--cdt-transition);
+  min-height: 110px;
+}
+
+.clube-dos-taberneiros .atributo:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px var(--cdt-shadow);
+}
+
+.clube-dos-taberneiros .atributo label {
+  font-weight: bold;
+  color: var(--cdt-primary);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.clube-dos-taberneiros .atributo small {
+  font-size: 0.7rem;
+  color: #666;
+  text-align: center;
+  margin-top: 0.25rem;
+}
+
+.clube-dos-taberneiros .atributo-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.clube-dos-taberneiros .atributo input {
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  font-size: 1.25rem;
+  font-weight: bold;
+  border: 2px solid var(--cdt-primary);
+  border-radius: 50%;
+  background: white;
+  flex: 1;
+}
+
+.clube-dos-taberneiros .attribute-roll {
+  padding: 0.25rem;
+  font-size: 0.75rem;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--cdt-primary);
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: var(--cdt-transition);
+}
+
+.clube-dos-taberneiros .attribute-roll:hover {
+  background: var(--cdt-accent);
+  transform: scale(1.1);
+}
+
+/* ===== RECURSOS RESPONSIVOS ===== */
+.clube-dos-taberneiros .resource {
+  margin-bottom: 1rem;
+}
+
+.clube-dos-taberneiros .resource-content {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.clube-dos-taberneiros .resource-value {
+  font-weight: bold;
+  font-size: 1.25rem;
+  color: var(--cdt-primary);
+}
+
+.clube-dos-taberneiros .resource-formula {
+  font-size: 0.75rem;
+  color: #666;
+  font-style: italic;
+}
+
+.clube-dos-taberneiros .separator {
+  color: #999;
+  font-weight: bold;
+  margin: 0 0.25rem;
+}
+
+.clube-dos-taberneiros .resource input {
+  flex: 1;
+  min-width: 60px;
+  padding: 0.5rem;
+  border: 1px solid var(--cdt-border);
+  border-radius: 4px;
+  background: white;
+  text-align: center;
+  font-weight: bold;
+}
+
+/* ===== BARRAS DE RECURSOS ===== */
+.clube-dos-taberneiros .resource-bar {
+  position: relative;
+  height: 8px;
+  background: #ddd;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 0.5rem;
+}
+
+.clube-dos-taberneiros .resource-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--cdt-success), var(--cdt-primary));
+  transition: width 0.3s ease;
+  border-radius: 4px;
+}
+
+.clube-dos-taberneiros .resource-bar-fill.low {
+  background: linear-gradient(90deg, var(--cdt-warning), var(--cdt-danger));
+}
+
+.clube-dos-taberneiros .resource-bar-fill.warning {
+  background: linear-gradient(90deg, var(--cdt-warning), #ff6b35);
+}
+
+/* ===== INDICADORES DE STATUS ===== */
+.clube-dos-taberneiros .status-indicator {
+  display: inline-block;
+  font-size: 0.8rem;
+  margin-left: 0.25rem;
+}
+
+.clube-dos-taberneiros .status-indicator.critical {
+  color: var(--cdt-danger);
+  animation: pulse 1s infinite;
+}
+
+.clube-dos-taberneiros .status-indicator.warning {
+  color: var(--cdt-warning);
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* ===== BOTÕES DE DESCANSO RESPONSIVOS ===== */
+.clube-dos-taberneiros .rest-buttons {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.clube-dos-taberneiros .rest-buttons button {
+  padding: 0.75rem;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: var(--cdt-border-radius);
+  cursor: pointer;
+  transition: var(--cdt-transition);
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.clube-dos-taberneiros .quick-rest {
+  background: linear-gradient(135deg, var(--cdt-success), #32cd32);
+  color: white;
+}
+
+.clube-dos-taberneiros .long-rest {
+  background: linear-gradient(135deg, var(--cdt-primary), #4169e1);
+  color: white;
+}
+
+.clube-dos-taberneiros .rest-buttons button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px var(--cdt-shadow);
+}
+
+/* ===== MOEDAS RESPONSIVAS ===== */
+.clube-dos-taberneiros .moeda-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+
+.clube-dos-taberneiros .moeda {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  border: 1px solid var(--cdt-border);
+  border-radius: var(--cdt-border-radius);
+  background: var(--cdt-background);
+  transition: var(--cdt-transition);
+}
+
+.clube-dos-taberneiros .moeda:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px var(--cdt-shadow);
+}
+
+.clube-dos-taberneiros .moeda.copper {
+  border-color: #cd7f32;
+}
+
+.clube-dos-taberneiros .moeda.silver {
+  border-color: #c0c0c0;
+}
+
+.clube-dos-taberneiros .moeda.gold {
+  border-color: #ffd700;
+}
+
+.clube-dos-taberneiros .moeda label {
+  font-weight: bold;
+  font-size: 0.8rem;
+  color: var(--cdt-secondary);
+  text-transform: uppercase;
+}
+
+.clube-dos-taberneiros .moeda input {
+  width: 100%;
+  text-align: center;
+  padding: 0.5rem;
+  border: 1px solid var(--cdt-border);
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+/* ===== LISTAS DE ITENS RESPONSIVAS ===== */
+.clube-dos-taberneiros .items-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background: var(--cdt-primary);
+  color: white;
+  border-radius: var(--cdt-border-radius);
+  margin-bottom: 0.75rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.clube-dos-taberneiros .items-header h3 {
+  margin: 0;
+  font-size: 1rem;
+  flex: 1;
+  min-width: 120px;
+}
+
+.clube-dos-taberneiros .header-actions,
+.clube-dos-taberneiros .equipment-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.clube-dos-taberneiros .item-control {
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem;
+  border-radius: 4px;
+  transition: var(--cdt-transition);
+  border: 1px solid transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  min-width: 36px;
+  height: 36px;
+  font-size: 0.8rem;
+}
+
+.clube-dos-taberneiros .item-control:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.clube-dos-taberneiros .items-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.clube-dos-taberneiros .items-list .item {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  padding: 0.75rem;
+  background: white;
+  border: 1px solid var(--cdt-border);
+  border-radius: var(--cdt-border-radius);
+  transition: var(--cdt-transition);
+  gap: 0.75rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.clube-dos-taberneiros .items-list .item:hover {
+  background: rgba(44, 90, 160, 0.05);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.clube-dos-taberneiros .item-name {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+.clube-dos-taberneiros .item-image {
+  flex-shrink: 0;
+}
+
+.clube-dos-taberneiros .item-image img {
+  border-radius: 4px;
+  cursor: pointer;
+  transition: var(--cdt-transition);
+}
+
+.clube-dos-taberneiros .item-image img:hover {
+  transform: scale(1.1);
+}
+
+.clube-dos-taberneiros .item-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.clube-dos-taberneiros .item-name h4 {
+  margin: 0 0 0.25rem 0;
+  font-size: 0.9rem;
+  color: var(--cdt-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.clube-dos-taberneiros .item-description {
+  font-size: 0.75rem;
+  color: #666;
+  line-height: 1.2;
+  display: block;
+}
+
+.clube-dos-taberneiros .item-damage,
+.clube-dos-taberneiros .item-defense,
+.clube-dos-taberneiros .item-cost,
+.clube-dos-taberneiros .item-quantity {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  min-width: 50px;
+}
+
+.clube-dos-taberneiros .damage-value,
+.clube-dos-taberneiros .defense-value,
+.clube-dos-taberneiros .cost-value,
+.clube-dos-taberneiros .quantity-value {
+  font-weight: bold;
+  color: var(--cdt-primary);
+  font-size: 0.9rem;
+}
+
+.clube-dos-taberneiros .item-damage small,
+.clube-dos-taberneiros .item-defense small,
+.clube-dos-taberneiros .item-cost small,
+.clube-dos-taberneiros .item-quantity small {
+  font-size: 0.7rem;
+  color: #666;
+}
+
+/* ===== BOTÕES DE AÇÃO DOS ITENS ===== */
+.clube-dos-taberneiros .item-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.clube-dos-taberneiros .item-use-btn {
+  background: var(--cdt-success);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--cdt-transition);
+  font-size: 0.8rem;
+}
+
+.clube-dos-taberneiros .item-use-btn:hover {
+  background: var(--cdt-primary);
+  transform: scale(1.1);
+}
+
+.clube-dos-taberneiros .item-use-btn.disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* ===== TOGGLE SWITCHES PARA EQUIPAMENTOS ===== */
+.clube-dos-taberneiros .item-equipped {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.clube-dos-taberneiros .toggle-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  cursor: pointer;
+}
+
+.clube-dos-taberneiros .toggle-label input[type="checkbox"] {
+  display: none;
+}
+
+.clube-dos-taberneiros .toggle-slider {
+  position: relative;
+  width: 40px;
+  height: 20px;
+  background: #ccc;
+  border-radius: 20px;
+  transition: var(--cdt-transition);
+}
+
+.clube-dos-taberneiros .toggle-slider::before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  background: white;
+  border-radius: 50%;
+  transition: var(--cdt-transition);
+}
+
+.clube-dos-taberneiros .toggle-label input[type="checkbox"]:checked + .toggle-slider {
+  background: var(--cdt-success);
+}
+
+.clube-dos-taberneiros .toggle-label input[type="checkbox"]:checked + .toggle-slider::before {
+  transform: translateX(20px);
+}
+
+.clube-dos-taberneiros .toggle-label small {
+  font-size: 0.7rem;
+  color: #666;
+  text-align: center;
+}
+
+.clube-dos-taberneiros .item-controls {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.clube-dos-taberneiros .item-controls .item-control {
+  color: var(--cdt-text);
+  padding: 0.25rem;
+  border-radius: 4px;
+  opacity: 0.6;
+  transition: var(--cdt-transition);
+}
+
+.clube-dos-taberneiros .item-controls .item-control:hover {
+  color: var(--cdt-primary);
+  background: rgba(44, 90, 160, 0.1);
+  opacity: 1;
+}
+
+/* ===== SEÇÕES VAZIAS ===== */
+.clube-dos-taberneiros .empty-section {
+  text-align: center;
+  padding: 2rem 1rem;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: var(--cdt-border-radius);
+  border: 2px dashed var(--cdt-border);
+}
+
+.clube-dos-taberneiros .empty-section p {
+  margin: 0 0 0.5rem 0;
+  font-size: 1rem;
+  color: var(--cdt-text);
+}
+
+.clube-dos-taberneiros .empty-section small {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+/* ===== SEÇÕES DE ITENS RESPONSIVAS ===== */
+.clube-dos-taberneiros .items-section {
+  margin-bottom: 1.5rem;
+}
+
+.clube-dos-taberneiros .items-section h4 {
+  background: var(--cdt-secondary);
+  color: white;
+  padding: 0.75rem 1rem;
+  margin: 0 0 0.75rem 0;
+  border-radius: var(--cdt-border-radius);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ===== ZONA DE DROP MELHORADA ===== */
+.clube-dos-taberneiros .dropzone {
+  border: 2px dashed var(--cdt-primary);
+  background: rgba(44, 90, 160, 0.05);
+  border-radius: var(--cdt-border-radius);
+  padding: 1.5rem;
+  text-align: center;
+  transition: var(--cdt-transition);
+  margin-top: 1rem;
+}
+
+.clube-dos-taberneiros .dropzone:hover {
+  border-color: var(--cdt-accent);
+  background: rgba(212, 175, 55, 0.1);
+}
+
+.clube-dos-taberneiros .dropzone-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.clube-dos-taberneiros .dropzone-content i {
+  font-size: 1.5rem;
+  color: var(--cdt-primary);
+}
+
+.clube-dos-taberneiros .dropzone-content p {
+  margin: 0;
+  font-weight: bold;
+  color: var(--cdt-primary);
+}
+
+.clube-dos-taberneiros .dropzone-content small {
+  color: #666;
+  font-size: 0.8rem;
+}
+
+/* ===== BIOGRAFIA GRID ===== */
+.clube-dos-taberneiros .biografia-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.clube-dos-taberneiros .biografia-section.full-width {
+  grid-column: 1 / -1;
+}
+
+/* ===== BIOGRAFIA RESPONSIVA ===== */
+.clube-dos-taberneiros .biografia-section {
+  margin-bottom: 0;
+}
+
+.clube-dos-taberneiros .biografia-section label {
+  display: block;
+  font-weight: bold;
+  color: var(--cdt-primary);
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.clube-dos-taberneiros .biografia-section input,
+.clube-dos-taberneiros .biografia-section textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--cdt-border);
+  border-radius: var(--cdt-border-radius);
+  font-family: inherit;
+  resize: vertical;
+  transition: var(--cdt-transition);
+  box-sizing: border-box;
+}
+
+.clube-dos-taberneiros .biografia-section input:focus,
+.clube-dos-taberneiros .biografia-section textarea:focus {
+  border-color: var(--cdt-primary);
+  box-shadow: 0 0 0 2px rgba(44, 90, 160, 0.2);
+  outline: none;
+}
+
+.clube-dos-taberneiros .biografia-section textarea {
+  min-height: 100px;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+/* ===== INPUTS GERAIS RESPONSIVOS ===== */
+.clube-dos-taberneiros input[type="text"],
+.clube-dos-taberneiros input[type="number"],
+.clube-dos-taberneiros select,
+.clube-dos-taberneiros textarea {
+  background: white;
+  border: 1px solid var(--cdt-border);
+  border-radius: 4px;
+  padding: 0.5rem;
+  color: var(--cdt-text);
+  font-family: inherit;
+  transition: var(--cdt-transition);
+  font-size: 0.9rem;
+}
+
+.clube-dos-taberneiros input[type="text"]:focus,
+.clube-dos-taberneiros input[type="number"]:focus,
+.clube-dos-taberneiros select:focus,
+.clube-dos-taberneiros textarea:focus {
+  border-color: var(--cdt-primary);
+  box-shadow: 0 0 0 2px rgba(44, 90, 160, 0.2);
+  outline: none;
+}
+
+/* ===== INDICADORES DE STATUS ===== */
+.clube-dos-taberneiros .disabled {
+  opacity: 0.6;
+  filter: grayscale(0.3);
+}
+
+.clube-dos-taberneiros .unequipped {
+  opacity: 0.7;
+}
+
+.clube-dos-taberneiros .insufficient-mp {
+  background: rgba(220, 20, 60, 0.1);
+  border-left: 3px solid var(--cdt-danger);
+}
+
+.clube-dos-taberneiros .mp-warning {
+  color: var(--cdt-warning);
+  font-weight: bold;
+  margin-left: 0.25rem;
+}
+
+/* ===== MEDIA QUERIES PARA JANELAS PEQUENAS ===== */
+@media (max-width: 500px) {
+  :root {
+    --cdt-header-height: 70px;
+    --cdt-tabs-height: 28px;
+  }
+  
+  .clube-dos-taberneiros {
+    min-height: 350px;
+  }
+  
+  .clube-dos-taberneiros .window-content {
+    min-height: 350px;
+  }
+  
+  .clube-dos-taberneiros .sheet-header {
+    padding: 0.375rem;
+    gap: 0.25rem;
+  }
+  
+  .clube-dos-taberneiros .profile-img {
+    width: 45px;
+    height: 45px;
+  }
+  
+  .clube-dos-taberneiros .sheet-tabs {
+    height: 28px;
+  }
+  
+  .clube-dos-taberneiros .sheet-tabs .item {
+    padding: 0.2rem 0.375rem;
+    font-size: 0.65rem;
+    min-width: 50px;
+  }
+  
+  .clube-dos-taberneiros .sheet-body {
+    padding: 0.375rem;
+  }
+  
+  .clube-dos-taberneiros .atributo {
+    min-height: 100px;
+    padding: 0.375rem;
+    gap: 0.25rem;
+  }
+  
+  .clube-dos-taberneiros .atributo input {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+  
+  .clube-dos-taberneiros .attribute-roll {
+    width: 24px;
+    height: 24px;
+    font-size: 0.7rem;
+  }
+  
+  .clube-dos-taberneiros .items-list .item {
+    grid-template-columns: 1fr auto;
+    padding: 0.5rem;
+    gap: 0.5rem;
+  }
+  
+  .clube-dos-taberneiros .item-name h4 {
+    font-size: 0.8rem;
+  }
+  
+  .clube-dos-taberneiros .items-header {
+    padding: 0.5rem;
+  }
+  
+  .clube-dos-taberneiros .items-header h3 {
+    font-size: 0.85rem;
+  }
+}
+
+/* ===== MEDIA QUERIES PARA TABLETS ===== */
+@media (min-width: 768px) {
+  :root {
+    --cdt-header-height: 85px;
+    --cdt-tabs-height: 36px;
+  }
+  
+  .clube-dos-taberneiros {
+    min-height: 450px;
+  }
+  
+  .clube-dos-taberneiros .window-content {
+    min-height: 450px;
+  }
+  
+  .clube-dos-taberneiros .sheet-header {
+    flex-direction: row;
+    align-items: center;
+    min-height: auto;
+    padding: 0.75rem;
+    gap: 0.75rem;
+  }
+  
+  .clube-dos-taberneiros .sheet-tabs {
+    height: 36px;
+  }
+  
+  .clube-dos-taberneiros .sheet-tabs .item {
+    padding: 0.3rem 0.75rem;
+    font-size: 0.75rem;
+  }
+  
+  .clube-dos-taberneiros .sheet-body {
+    padding: 1rem;
+  }
+  
+  .clube-dos-taberneiros .profile-img {
+    width: 70px;
+    height: 70px;
+    align-self: flex-start;
+  }
+  
+  .clube-dos-taberneiros .charname input {
+    font-size: 1.2rem;
+    text-align: left;
+  }
+  
+  .clube-dos-taberneiros .resource-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .clube-dos-taberneiros .grid-2col {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .clube-dos-taberneiros .atributo-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .clube-dos-taberneiros .rest-buttons {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .clube-dos-taberneiros .items-list .item {
+    grid-template-columns: 1fr auto auto auto;
+  }
+  
+  .clube-dos-taberneiros .sheet-tabs .item {
+    font-size: 0.95rem;
+  }
+  
+  .clube-dos-taberneiros .biografia-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ===== MEDIA QUERIES PARA DESKTOP ===== */
+@media (min-width: 1024px) {
+  :root {
+    --cdt-header-height: 90px;
+    --cdt-tabs-height: 40px;
+  }
+  
+  .clube-dos-taberneiros {
+    min-height: 500px;
+  }
+  
+  .clube-dos-taberneiros .window-content {
+    min-height: 500px;
+  }
+  
+  .clube-dos-taberneiros .sheet-tabs {
+    height: 40px;
+  }
+  
+  .clube-dos-taberneiros .sheet-tabs .item {
+    padding: 0.4rem 1rem;
+    font-size: 0.8rem;
+  }
+  
+  .clube-dos-taberneiros .sheet-body {
+    padding: 1.5rem;
+  }
+  
+  .clube-dos-taberneiros .resource-row {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .clube-dos-taberneiros .atributo-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  
+  .clube-dos-taberneiros .atributo {
+    padding: 1rem;
+  }
+  
+  .clube-dos-taberneiros .atributo input {
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
+  }
+  
+  .clube-dos-taberneiros .attribute-roll {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .clube-dos-taberneiros .sheet-tabs .item {
+    padding: 0.5rem 1.25rem;
+    font-size: 0.85rem;
+  }
+  
+  .clube-dos-taberneiros .items-list .item {
+    grid-template-columns: 1fr repeat(3, auto);
+    padding: 1rem;
+  }
+  
+  .clube-dos-taberneiros .item-name h4 {
+    font-size: 1rem;
+  }
+}
+
+/* ===== MEDIA QUERIES PARA TELAS GRANDES ===== */
+@media (min-width: 1200px) {
+  .clube-dos-taberneiros .atributo-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+  
+  .clube-dos-taberneiros .moeda-grid {
+    gap: 1rem;
+  }
+  
+  .clube-dos-taberneiros .items-header {
+    padding: 1rem 1.5rem;
+  }
+  
+  .clube-dos-taberneiros .items-header h3 {
+    font-size: 1.1rem;
+  }
+  
+  .clube-dos-taberneiros .biografia-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+}
+
+/* ===== SCROLLBAR PERSONALIZADA ===== */
+.clube-dos-taberneiros .sheet-body::-webkit-scrollbar {
+  width: 8px;
+}
+
+.clube-dos-taberneiros .sheet-body::-webkit-scrollbar-track {
+  background: var(--cdt-background);
+  border-radius: 4px;
+}
+
+.clube-dos-taberneiros .sheet-body::-webkit-scrollbar-thumb {
+  background: var(--cdt-border);
+  border-radius: 4px;
+}
+
+.clube-dos-taberneiros .sheet-body::-webkit-scrollbar-thumb:hover {
+  background: var(--cdt-primary);
+}
+
+/* ===== ESTADOS DE HOVER E FOCUS PARA ACESSIBILIDADE ===== */
+.clube-dos-taberneiros *:focus {
+  outline: 2px solid var(--cdt-accent);
+  outline-offset: 2px;
+}
+
+.clube-dos-taberneiros button:focus-visible,
+.clube-dos-taberneiros .item-control:focus-visible {
+  outline: 2px solid var(--cdt-accent);
+  outline-offset: 2px;
+}
+
+/* ===== ANIMAÇÕES E TRANSIÇÕES ===== */
+@media (prefers-reduced-motion: no-preference) {
+  .clube-dos-taberneiros * {
+    transition: var(--cdt-transition);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .clube-dos-taberneiros * {
+    transition: none;
+    animation: none;
+  }
+}
+
+/* ===== PRINT STYLES ===== */
+@media print {
+  .clube-dos-taberneiros .sheet-tabs,
+  .clube-dos-taberneiros .item-controls,
+  .clube-dos-taberneiros .rest-buttons {
+    display: none;
+  }
+  
+  .clube-dos-taberneiros .sheet-body .tab {
+    display: block !important;
+  }
+  
+  .clube-dos-taberneiros {
+    border: none;
+    box-shadow: none;
+  }
+}
+
+/* ===== TEMAS DE ALTO CONTRASTE ===== */
+@media (prefers-contrast: high) {
+  :root {
+    --cdt-border: #000000;
+    --cdt-text: #000000;
+    --cdt-background: #ffffff;
+  }
+  
+  .clube-dos-taberneiros input,
+  .clube-dos-taberneiros select,
+  .clube-dos-taberneiros textarea {
+    border: 2px solid #000000;
+  }
+}
+
+/* ===== ESTILOS ESPECÍFICOS PARA FICHAS DE ITENS ===== */
+.clube-dos-taberneiros.item .sheet-header {
+  padding: 0.5rem;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.clube-dos-taberneiros.item .item-img {
+  width: 48px !important;
+  height: 48px !important;
+  border: 2px solid var(--cdt-accent);
+  border-radius: 4px;
+}
+
+.clube-dos-taberneiros.item .item-name input {
+  font-size: 1.1rem;
+  font-weight: bold;
+  padding: 0.25rem;
+}
+
+.clube-dos-taberneiros.item .item-subtitle {
+  font-size: 0.8rem;
+  color: #666;
+  margin-top: 0.25rem;
+}
+
+.clube-dos-taberneiros.item .sheet-body {
+  padding: 0.5rem;
+}
+
+.clube-dos-taberneiros.item .item-properties {
+  gap: 0.75rem;
+}
+
+.clube-dos-taberneiros.item .form-group {
+  margin-bottom: 0.75rem;
+}
+
+.clube-dos-taberneiros.item .form-row {
+  gap: 0.75rem;
+}
+

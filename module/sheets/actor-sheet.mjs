@@ -1,520 +1,374 @@
-import {onManageActiveEffect, prepareActiveEffectCategories} from "../helpers/effects.mjs";
+import { rollTest, rollSpell, rollWeapon, rollDamage } from "../clube-dos-taberneiros.mjs";
 
-/**
- * Estender a classe base ActorSheet para criar uma ficha customizada
- */
-export class SistemaN20RPGActorSheet extends ActorSheet {
-
+export class TaberneiroPersonagemSheet extends ActorSheet {
   /** @override */
   static get defaultOptions() {
-    return mergeObject(super.defaultOptions, {
-      classes: ["sistema-n20-rpg", "sheet", "actor"],
-      template: "systems/sistema-n20-rpg/templates/actor/actor-sheet.html",
-      width: 750,
+    return foundry.utils.mergeObject(super.defaultOptions, {
+      classes: ["clube-dos-taberneiros", "sheet", "actor"],
+      template: "systems/clube-dos-taberneiros/templates/actor/personagem-sheet.hbs",
+      width: 650,
       height: 650,
-      tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "atributos" }],
-      dragDrop: [
-        {dragSelector: ".item-list .item", dropSelector: null},
-        {dragSelector: ".token-image", dropSelector: null}
-      ],
-      resizable: true
+      tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "principal" }],
+      dragDrop: [{ dragSelector: ".item-list .item", dropSelector: null }]
     });
   }
 
   /** @override */
-  get template() {
-    return `systems/sistema-n20-rpg/templates/actor/actor-${this.actor.type}-sheet.html`;
-  }
-
-  /* -------------------------------------------- */
-
-  /** @override */
   getData() {
+    // Usar método padrão do Foundry
     const context = super.getData();
     const actorData = this.actor.toObject(false);
-
-    // Add the actor's data to context.data for easier access
+    
+    // Adicionar dados do sistema
     context.system = actorData.system;
     context.flags = actorData.flags;
-
-    // Prepare character data and items
-    if (actorData.type == 'personagem') {
-      this._preparePersonagemData(context);
+    
+    // Organizar itens por tipo de forma segura
+    const items = this.actor.items;
+    context.habilidades = items.filter(item => item.type === "habilidade") || [];
+    context.magias = items.filter(item => item.type === "magia") || [];
+    context.armas = items.filter(item => item.type === "arma") || [];
+    context.armaduras = items.filter(item => item.type === "armadura") || [];
+    context.escudos = items.filter(item => item.type === "escudo") || [];
+    context.equipamentos = items.filter(item => item.type === "equipamento") || [];
+    context.pocoes = items.filter(item => item.type === "pocao") || [];
+    
+    // Adicionar informações de status de forma segura
+    try {
+      context.statusHealth = this._getHealthStatus();
+      context.encumbrance = this._getEncumbranceLevel();
+      
+      // Verificar pré-requisitos de habilidades de forma segura
+      context.habilidades.forEach(habilidade => {
+        try {
+          habilidade.canUse = this._checkPrerequisites(habilidade);
+        } catch (error) {
+          console.warn("Erro ao verificar pré-requisitos:", error);
+          habilidade.canUse = true; // Padrão seguro
+        }
+      });
+      
+      // Enriquecer biografia de forma segura
+      if (context.system.detalhes?.biografia) {
+        context.enrichedBiography = TextEditor.enrichHTML(context.system.detalhes.biografia, {async: false});
+      } else {
+        context.enrichedBiography = "";
+      }
+      
+    } catch (error) {
+      console.error("Clube dos Taberneiros | Erro em getData():", error);
+      // Valores padrão seguros
+      context.statusHealth = "healthy";
+      context.encumbrance = "normal";
+      context.enrichedBiography = "";
     }
-
-    // Prepare NPC data
-    if (actorData.type == 'npc') {
-      this._prepareNPCData(context);
-    }
-
-    // Prepare monster data
-    if (actorData.type == 'monstro') {
-      this._prepareMonstroData(context);
-    }
-
-    // Prepare items
-    this._prepareItems(context);
-
-    // Add roll data for TinyMCE editors
-    context.rollData = context.actor.getRollData();
-
-    // Prepare active effects
-    context.effects = prepareActiveEffectCategories(this.actor.effects);
-
-    // Add user permissions
-    context.isGM = game.user.isGM;
-    context.canEdit = this.actor.isOwner;
-
-    // Add token data
-    context.hasToken = this.actor.isToken;
-    context.token = this.actor.token;
-
+    
     return context;
   }
-
-  /**
-   * Organize and classify Items for Character sheets
-   */
-  _preparePersonagemData(context) {
-    // Initialize containers
-    const equipamentos = [];
-    const magias = [];
-    const habilidades = [];
-
-    // Iterate through items, allocating to containers
-    for (let i of context.items) {
-      i.img = i.img || DEFAULT_TOKEN;
-      
-      // Append to equipment
-      if (i.type === 'arma' || i.type === 'armadura' || i.type === 'item') {
-        equipamentos.push(i);
-      }
-      // Append to spells
-      else if (i.type === 'magia') {
-        magias.push(i);
-      }
-      // Append to abilities
-      else if (i.type === 'habilidade') {
-        habilidades.push(i);
-      }
-    }
-
-    // Sort items by name
-    equipamentos.sort((a, b) => a.name.localeCompare(b.name));
-    magias.sort((a, b) => a.name.localeCompare(b.name));
-    habilidades.sort((a, b) => a.name.localeCompare(b.name));
-
-    // Assign and return
-    context.equipamentos = equipamentos;
-    context.magias = magias;
-    context.habilidades = habilidades;
-
-    // Calculate encumbrance
-    context.encumbrance = this._calculateEncumbrance();
-  }
-
-  /**
-   * Organize and classify Items for NPC sheets
-   */
-  _prepareNPCData(context) {
-    // NPCs have simplified item management
-    this._preparePersonagemData(context);
-  }
-
-  /**
-   * Organize and classify Items for Monster sheets
-   */
-  _prepareMonstroData(context) {
-    // Monsters have simplified item management
-    this._preparePersonagemData(context);
-  }
-
-  /**
-   * Organize and classify Items for all sheets
-   */
-  _prepareItems(context) {
-    // Initialize containers
-    const gear = [];
-    const features = [];
-    const spells = [];
-
-    // Iterate through items, allocating to containers
-    for (let i of context.items) {
-      i.img = i.img || DEFAULT_TOKEN;
-      
-      // Append to gear
-      if (i.type === 'arma' || i.type === 'armadura' || i.type === 'item') {
-        gear.push(i);
-      }
-      // Append to features
-      else if (i.type === 'habilidade') {
-        features.push(i);
-      }
-      // Append to spells
-      else if (i.type === 'magia') {
-        spells.push(i);
-      }
-    }
-
-    // Assign and return
-    context.gear = gear;
-    context.features = features;
-    context.spells = spells;
-  }
-
-  /**
-   * Calculate encumbrance
-   */
-  _calculateEncumbrance() {
-    const system = this.actor.system;
-    const capacity = system.equipamentos.capacidade;
-    const current = capacity.atual;
-    const max = capacity.max;
-    
-    let level = 0;
-    let percentage = Math.round((current / max) * 100);
-    
-    if (percentage > 100) level = 3; // Overloaded
-    else if (percentage > 75) level = 2; // Heavy
-    else if (percentage > 50) level = 1; // Normal
-    else level = 0; // Light
-    
-    return {
-      current: current,
-      max: max,
-      percentage: percentage,
-      level: level,
-      label: ["Leve", "Normal", "Pesado", "Sobrecarregado"][level]
-    };
-  }
-
-  /* -------------------------------------------- */
 
   /** @override */
   activateListeners(html) {
     super.activateListeners(html);
 
-    // Render the item sheet for viewing/editing prior to the editable check
-    html.find('.item-edit').click(ev => {
-      const li = $(ev.currentTarget).parents(".item");
-      const item = this.actor.items.get(li.data("item-id"));
-      item.sheet.render(true);
-    });
-
-    // Everything below here is only needed if the sheet is editable
+    // Não editar se a ficha estiver bloqueada
     if (!this.isEditable) return;
 
-    // Add Inventory Item
-    html.find('.item-create').click(this._onItemCreate.bind(this));
-
-    // Delete Inventory Item
-    html.find('.item-delete').click(ev => {
-      const li = $(ev.currentTarget).parents(".item");
-      const item = this.actor.items.get(li.data("item-id"));
-      item.delete();
-      li.slideUp(200, () => this.render(false));
-    });
-
-    // Active Effect management
-    html.find(".effect-control").click(ev => onManageActiveEffect(ev, this.actor));
-
-    // Rollable abilities
-    html.find('.rollable').click(this._onRoll.bind(this));
-
-    // Attribute rolls
+    // Listeners para criação de itens
+    html.find('.item-control[data-action="create"]').click(this._onCreateItem.bind(this));
+    
+    // Listeners para edição e deleção de itens
+    html.find('.item-control[data-action="edit"]').click(this._onEditItem.bind(this));
+    html.find('.item-control[data-action="delete"]').click(this._onDeleteItem.bind(this));
+    
+    // Listeners para equipar/desequipar
+    html.find('.item-toggle').change(this._onToggleEquip.bind(this));
+    
+    // Listeners para rolagens
     html.find('.attribute-roll').click(this._onAttributeRoll.bind(this));
-
-    // Damage rolls
-    html.find('.damage-roll').click(this._onDamageRoll.bind(this));
-
-    // Weapon attacks
-    html.find('.weapon-attack').click(this._onWeaponAttack.bind(this));
-
-    // Spell casting
-    html.find('.spell-cast').click(this._onSpellCast.bind(this));
-
-    // Ability usage
-    html.find('.ability-use').click(this._onAbilityUse.bind(this));
-
-    // Rest buttons
-    html.find('.short-rest').click(this._onShortRest.bind(this));
+    html.find('.rollable').click(this._onRollItem.bind(this));
+    
+    // Listeners para descanso
+    html.find('.quick-rest').click(this._onQuickRest.bind(this));
     html.find('.long-rest').click(this._onLongRest.bind(this));
-
-    // Equipment toggle
-    html.find('.item-toggle').click(this._onItemToggle.bind(this));
-
-    // Token management
-    html.find('.token-config').click(this._onTokenConfig.bind(this));
-
-    // HP/MP management
-    html.find('.resource-control').click(this._onResourceControl.bind(this));
-
-    // Drag events for macro creation
-    html.find('.item').each((i, li) => {
-      if (li.classList.contains("inventory-header")) return;
-      li.setAttribute("draggable", true);
-      li.addEventListener("dragstart", ev => this._onDragStart(ev), false);
-    });
-
-    // Context menu for items
-    html.find('.item').contextmenu(this._onItemContext.bind(this));
+    
+    // Tooltips
+    this._initializeTooltips(html);
   }
 
   /**
-   * Handle creating a new Owned Item for the actor using initial data defined in the HTML dataset
+   * Inicializar tooltips
    */
-  async _onItemCreate(event) {
+  _initializeTooltips(html) {
+    try {
+      html.find('.cdt-tooltip').each((i, element) => {
+        const tooltip = $(element).attr('data-tooltip');
+        if (tooltip) {
+          $(element).attr('title', tooltip);
+        }
+      });
+    } catch (error) {
+      console.warn("Clube dos Taberneiros | Erro ao inicializar tooltips:", error);
+    }
+  }
+
+  /**
+   * Obter status de saúde
+   */
+  _getHealthStatus() {
+    try {
+      const pv = this.actor.system.pv;
+      if (!pv || !pv.max) return "healthy";
+      
+      const percentage = (pv.value / pv.max) * 100;
+      
+      if (percentage <= 0) return "dead";
+      if (percentage <= 25) return "bloodied";
+      if (percentage <= 50) return "wounded";
+      return "healthy";
+    } catch (error) {
+      console.warn("Erro ao calcular status de saúde:", error);
+      return "healthy";
+    }
+  }
+
+  /**
+   * Obter nível de sobrecarga
+   */
+  _getEncumbranceLevel() {
+    try {
+      const carga = this.actor.system.recursos?.carga;
+      if (!carga) return "normal";
+      
+      const percentage = (carga.atual / carga.max) * 100;
+      
+      if (percentage >= 100) return "over-encumbered";
+      if (percentage >= 75) return "heavily-loaded";
+      return "normal";
+    } catch (error) {
+      console.warn("Erro ao calcular sobrecarga:", error);
+      return "normal";
+    }
+  }
+
+  /**
+   * Verificar pré-requisitos
+   */
+  _checkPrerequisites(habilidade) {
+    try {
+      // Implementação simplificada - sempre retorna true por segurança
+      return true;
+    } catch (error) {
+      console.warn("Erro ao verificar pré-requisitos:", error);
+      return true;
+    }
+  }
+
+  /**
+   * Criar novo item
+   */
+  async _onCreateItem(event) {
     event.preventDefault();
     const header = event.currentTarget;
     const type = header.dataset.type;
-    const data = duplicate(header.dataset);
-    const name = `Novo ${type}`;
+    
     const itemData = {
-      name: name,
+      name: `Novo ${type}`,
       type: type,
-      system: data
+      system: {}
     };
     
-    delete itemData.system["type"];
+    // Dados específicos por tipo
+    switch (type) {
+      case "habilidade":
+        itemData.system = { atributo: "fisico", bonus: 0, categoria: "geral" };
+        break;
+      case "magia":
+        itemData.system = { escola: "evocacao", nivel: 1, custoMP: 1 };
+        break;
+      case "arma":
+        itemData.system = { categoria: "simples", tipo: "corpo-a-corpo", dano: "1d6" };
+        break;
+      case "armadura":
+        itemData.system = { categoria: "leve", defesa: 1 };
+        break;
+      case "equipamento":
+        itemData.system = { categoria: "aventura", quantidade: 1 };
+        break;
+    }
+    
     return await Item.create(itemData, {parent: this.actor});
   }
 
   /**
-   * Handle clickable rolls
+   * Editar item
    */
-  _onRoll(event) {
+  _onEditItem(event) {
     event.preventDefault();
-    const element = event.currentTarget;
-    const dataset = element.dataset;
-
-    if (dataset.rollType) {
-      if (dataset.rollType == 'item') {
-        const itemId = element.closest('.item').dataset.itemId;
-        const item = this.actor.items.get(itemId);
-        if (item) return item.roll();
-      }
-    }
-
-    if (dataset.roll) {
-      let label = dataset.label ? `[ability] ${dataset.label}` : '';
-      let roll = new Roll(dataset.roll, this.actor.getRollData());
-      roll.toMessage({
-        speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-        flavor: label,
-        rollMode: game.settings.get('core', 'rollMode'),
-      });
-      return roll;
-    }
+    const li = $(event.currentTarget).parents(".item");
+    const item = this.actor.items.get(li.data("item-id"));
+    item.sheet.render(true);
   }
 
   /**
-   * Handle attribute rolls
+   * Deletar item
    */
-  _onAttributeRoll(event) {
+  async _onDeleteItem(event) {
+    event.preventDefault();
+    const li = $(event.currentTarget).parents(".item");
+    const item = this.actor.items.get(li.data("item-id"));
+    
+    return Dialog.confirm({
+      title: "Deletar Item",
+      content: `<p>Tem certeza que deseja deletar <strong>${item.name}</strong>?</p>`,
+      yes: () => item.delete(),
+      no: () => {},
+      defaultYes: false
+    });
+  }
+
+  /**
+   * Equipar/Desequipar item
+   */
+  async _onToggleEquip(event) {
+    event.preventDefault();
+    const li = $(event.currentTarget).parents(".item");
+    const item = this.actor.items.get(li.data("item-id"));
+    const isEquipped = event.currentTarget.checked;
+    
+    return item.update({"system.equipado": isEquipped});
+  }
+
+  /**
+   * Rolar atributo
+   */
+  async _onAttributeRoll(event) {
     event.preventDefault();
     const attribute = event.currentTarget.dataset.attribute;
-    this.actor.rollAttribute(attribute);
-  }
-
-  /**
-   * Handle damage rolls
-   */
-  _onDamageRoll(event) {
-    event.preventDefault();
-    const itemId = event.currentTarget.closest('.item').dataset.itemId;
-    this.actor.rollDamage(itemId);
-  }
-
-  /**
-   * Handle weapon attacks
-   */
-  _onWeaponAttack(event) {
-    event.preventDefault();
-    const itemId = event.currentTarget.closest('.item').dataset.itemId;
-    this.actor.makeAttack(itemId);
-  }
-
-  /**
-   * Handle spell casting
-   */
-  _onSpellCast(event) {
-    event.preventDefault();
-    const itemId = event.currentTarget.closest('.item').dataset.itemId;
-    this.actor.castSpell(itemId);
-  }
-
-  /**
-   * Handle ability usage
-   */
-  _onAbilityUse(event) {
-    event.preventDefault();
-    const itemId = event.currentTarget.closest('.item').dataset.itemId;
-    this.actor.useAbility(itemId);
-  }
-
-  /**
-   * Handle short rest
-   */
-  _onShortRest(event) {
-    event.preventDefault();
-    this.actor.rest('short');
-  }
-
-  /**
-   * Handle long rest
-   */
-  _onLongRest(event) {
-    event.preventDefault();
-    this.actor.rest('long');
-  }
-
-  /**
-   * Handle item toggle (equip/unequip)
-   */
-  async _onItemToggle(event) {
-    event.preventDefault();
-    const itemId = event.currentTarget.closest('.item').dataset.itemId;
-    const item = this.actor.items.get(itemId);
     
-    if (item) {
-      const equipped = !item.system.equipado;
-      await item.update({"system.equipado": equipped});
-      
-      // Update actor data
-      this.actor.prepareData();
-      this.render(false);
-    }
-  }
-
-  /**
-   * Handle token configuration
-   */
-  _onTokenConfig(event) {
-    event.preventDefault();
-    const token = this.actor.token;
-    if (token) {
-      token.sheet.render(true);
-    } else {
-      const tokenData = this.actor.prototypeToken;
-      new TokenConfig(tokenData, {
+    try {
+      await rollTest({
         actor: this.actor,
-        configureDefault: true
-      }).render(true);
-    }
-  }
-
-  /**
-   * Handle resource control (HP/MP adjustment)
-   */
-  async _onResourceControl(event) {
-    event.preventDefault();
-    const button = event.currentTarget;
-    const resource = button.dataset.resource;
-    const action = button.dataset.action;
-    const amount = parseInt(button.dataset.amount) || 1;
-    
-    const current = this.actor.system.recursos[resource].value;
-    const max = this.actor.system.recursos[resource].max;
-    
-    let newValue;
-    if (action === 'increase') {
-      newValue = Math.min(max, current + amount);
-    } else if (action === 'decrease') {
-      newValue = Math.max(0, current - amount);
-    } else if (action === 'set-max') {
-      newValue = max;
-    } else if (action === 'set-zero') {
-      newValue = 0;
-    }
-    
-    await this.actor.update({[`system.recursos.${resource}.value`]: newValue});
-  }
-
-  /**
-   * Handle item context menu
-   */
-  _onItemContext(event) {
-    event.preventDefault();
-    const itemId = event.currentTarget.dataset.itemId;
-    const item = this.actor.items.get(itemId);
-    
-    if (!item) return;
-    
-    const contextMenu = [
-      {
-        name: "Editar",
-        icon: '<i class="fas fa-edit"></i>',
-        callback: () => item.sheet.render(true)
-      },
-      {
-        name: "Duplicar",
-        icon: '<i class="fas fa-copy"></i>',
-        callback: () => item.clone({name: `${item.name} (cópia)`}, {save: true})
-      },
-      {
-        name: "Deletar",
-        icon: '<i class="fas fa-trash"></i>',
-        callback: () => item.delete()
-      }
-    ];
-    
-    if (item.type === 'arma' || item.type === 'armadura') {
-      const equipLabel = item.system.equipado ? "Desequipar" : "Equipar";
-      contextMenu.unshift({
-        name: equipLabel,
-        icon: '<i class="fas fa-shield-alt"></i>',
-        callback: () => item.update({"system.equipado": !item.system.equipado})
+        attribute: attribute,
+        difficulty: 9 // ND padrão
       });
+    } catch (error) {
+      console.error("Erro na rolagem de atributo:", error);
     }
-    
-    new ContextMenu($(event.currentTarget), contextMenu);
   }
 
   /**
-   * Handle drag start for macro creation
+   * Rolar item
    */
-  _onDragStart(event) {
-    const li = event.currentTarget;
-    if (event.target.classList.contains("content-link")) return;
+  async _onRollItem(event) {
+    event.preventDefault();
+    const li = $(event.currentTarget).parents(".item");
+    const item = this.actor.items.get(li.data("item-id"));
+    const rollType = event.currentTarget.dataset.rollType;
     
-    let dragData = null;
-    
-    // Owned Items
-    if (li.dataset.itemId) {
-      const item = this.actor.items.get(li.dataset.itemId);
-      dragData = item.toDragData();
+    try {
+      switch (rollType) {
+        case "habilidade":
+          await rollTest({
+            actor: this.actor,
+            attribute: item.system.atributo,
+            bonus: item.system.bonus,
+            skillName: item.name,
+            difficulty: 9
+          });
+          break;
+        case "magia":
+          await rollSpell(this.actor, item);
+          break;
+        case "arma":
+          await rollWeapon(this.actor, item);
+          break;
+        case "pocao":
+          await this._usePotion(item);
+          break;
+      }
+    } catch (error) {
+      console.error("Erro na rolagem de item:", error);
     }
+  }
+
+  /**
+   * Descanso rápido
+   */
+  async _onQuickRest(event) {
+    event.preventDefault();
     
-    // Active Effects
-    if (li.dataset.effectId) {
-      const effect = this.actor.effects.get(li.dataset.effectId);
-      dragData = effect.toDragData();
+    try {
+      const system = this.actor.system;
+      const updates = {
+        "system.pv.value": Math.min(system.pv.max, system.pv.value + Math.floor(system.pv.max / 2)),
+        "system.pm.value": Math.min(system.pm.max, system.pm.value + Math.floor(system.pm.max / 2))
+      };
+      
+      await this.actor.update(updates);
+      
+      ChatMessage.create({
+        content: `<p><strong>${this.actor.name}</strong> fez um descanso rápido e recuperou recursos!</p>`,
+        speaker: ChatMessage.getSpeaker({actor: this.actor})
+      });
+    } catch (error) {
+      console.error("Erro no descanso rápido:", error);
     }
+  }
+
+  /**
+   * Descanso longo
+   */
+  async _onLongRest(event) {
+    event.preventDefault();
     
-    if (!dragData) return;
-    
-    // Set data transfer
-    event.dataTransfer.setData("text/plain", JSON.stringify(dragData));
+    try {
+      const system = this.actor.system;
+      const updates = {
+        "system.pv.value": system.pv.max,
+        "system.pm.value": system.pm.max
+      };
+      
+      await this.actor.update(updates);
+      
+      ChatMessage.create({
+        content: `<p><strong>${this.actor.name}</strong> fez um descanso longo e recuperou todos os recursos!</p>`,
+        speaker: ChatMessage.getSpeaker({actor: this.actor})
+      });
+    } catch (error) {
+      console.error("Erro no descanso longo:", error);
+    }
+  }
+
+  /**
+   * Usar poção
+   */
+  async _usePotion(item) {
+    try {
+      if (item.system.quantidade <= 0) {
+        ui.notifications.warn("Não há mais unidades desta poção!");
+        return;
+      }
+      
+      // Reduzir quantidade
+      await item.update({"system.quantidade": item.system.quantidade - 1});
+      
+      ChatMessage.create({
+        content: `<p><strong>${this.actor.name}</strong> usou ${item.name}!</p><p>${item.system.efeito || "Efeito a ser determinado pelo Mestre."}</p>`,
+        speaker: ChatMessage.getSpeaker({actor: this.actor})
+      });
+    } catch (error) {
+      console.error("Erro ao usar poção:", error);
+    }
   }
 
   /** @override */
-  _updateObject(event, formData) {
-    // Handle special form data
-    if (formData['system.recursos.hp.value']) {
-      formData['system.recursos.hp.value'] = Math.max(0, Math.min(
-        formData['system.recursos.hp.value'],
-        this.actor.system.recursos.hp.max
-      ));
+  async _updateObject(event, formData) {
+    try {
+      // Usar método padrão do Foundry
+      return super._updateObject(event, formData);
+    } catch (error) {
+      console.error("Clube dos Taberneiros | Erro ao atualizar ator:", error);
+      throw error;
     }
-    
-    if (formData['system.recursos.mp.value']) {
-      formData['system.recursos.mp.value'] = Math.max(0, Math.min(
-        formData['system.recursos.mp.value'],
-        this.actor.system.recursos.mp.max
-      ));
-    }
-    
-    // Update the Actor
-    return this.object.update(formData);
   }
 } 

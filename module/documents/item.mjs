@@ -1,189 +1,190 @@
-/**
- * Estender a classe base Item para criar um item customizado para o sistema N20 RPG
- */
-export class SistemaN20RPGItem extends Item {
-
-  /**
-   * Preparar dados do item após inicialização
-   */
+export class ClubeItem extends Item {
+  /** @override */
   prepareData() {
-    // Chamar o método da classe pai
     super.prepareData();
-
-    const itemData = this;
-    const data = itemData.system;
-
-    // Preparar dados específicos do tipo de item
-    if (itemData.type === 'arma') this._prepareArmaData(itemData);
-    if (itemData.type === 'armadura') this._prepareArmaduraData(itemData);
-    if (itemData.type === 'magia') this._prepareMagiaData(itemData);
-    if (itemData.type === 'habilidade') this._prepareHabilidadeData(itemData);
-    if (itemData.type === 'item') this._prepareItemData(itemData);
+    
+    // Inicializar dados padrão baseado no tipo
+    this._initializeDefaultData();
   }
 
   /**
-   * Preparar dados de arma
+   * Inicializar dados padrão baseado no tipo do item
    */
-  _prepareArmaData(itemData) {
-    const data = itemData.system;
+  _initializeDefaultData() {
+    const system = this.system;
     
-    // Garantir que armas tenham valores padrão
-    if (!data.dano) data.dano = "1d6";
-    if (!data.alcance) data.alcance = "Corpo a corpo";
-    if (!data.peso) data.peso = 1;
-    if (!data.preco) data.preco = 0;
+    // Dados padrão para todos os itens
+    if (!system.preco) {
+      system.preco = {
+        valor: 0,
+        moeda: "MP"
+      };
+    }
+    
+    if (system.peso === undefined) {
+      system.peso = 0;
+    }
+    
+    if (!system.raridade) {
+      system.raridade = "comum";
+    }
+    
+    if (!system.nivelMinimo) {
+      system.nivelMinimo = 1;
+    }
+
+    // Dados específicos por tipo
+    switch (this.type) {
+      case "habilidade":
+        if (!system.categoria) system.categoria = "gerais";
+        if (!system.atributo) system.atributo = "fisico";
+        if (system.bonus === undefined) system.bonus = 0;
+        if (system.passiva === undefined) system.passiva = false;
+        break;
+        
+      case "magia":
+        if (!system.escola) system.escola = "evocacao";
+        if (!system.nivel) system.nivel = 1;
+        if (!system.custoMP) system.custoMP = 1;
+        if (!system.alcance) system.alcance = "Pessoal";
+        if (!system.duracao) system.duracao = "Instantâneo";
+        if (!system.componentes) {
+          system.componentes = {
+            verbal: true,
+            somatico: true,
+            material: false,
+            materialDescricao: ""
+          };
+        }
+        break;
+        
+      case "arma":
+        if (!system.categoria) system.categoria = "corpo-a-corpo";
+        if (!system.tipo) system.tipo = "leve";
+        if (!system.dano) system.dano = "1d4";
+        if (!system.alcance) system.alcance = "1.5m";
+        if (!system.propriedades) system.propriedades = [];
+        if (system.municao === undefined) system.municao = 0;
+        if (system.municaoMax === undefined) system.municaoMax = 0;
+        if (system.equipado === undefined) system.equipado = false;
+        break;
+        
+      case "armadura":
+        if (!system.tipo) system.tipo = "leve";
+        if (system.defesa === undefined) system.defesa = 0;
+        if (system.penalidades === undefined) system.penalidades = 0;
+        if (system.furtividade === undefined) system.furtividade = false;
+        if (system.equipado === undefined) system.equipado = false;
+        break;
+        
+      case "equipamento":
+        if (system.quantidade === undefined) system.quantidade = 1;
+        if (system.consumivel === undefined) system.consumivel = false;
+        break;
+    }
   }
 
   /**
-   * Preparar dados de armadura
+   * Verificar se o item pode ser usado pelo ator
    */
-  _prepareArmaduraData(itemData) {
-    const data = itemData.system;
+  canUse(actor) {
+    if (!actor) return false;
     
-    // Garantir que armaduras tenham valores padrão
-    if (!data.protecao) data.protecao = 1;
-    if (!data.penalidade) data.penalidade = 0;
-    if (!data.peso) data.peso = 5;
-    if (!data.preco) data.preco = 0;
+    // Verificar nível mínimo
+    if (actor.system.nivel?.value < this.system.nivelMinimo) {
+      return false;
+    }
+    
+    // Verificações específicas por tipo
+    switch (this.type) {
+      case "magia":
+        // Verificar se o ator tem PM suficiente
+        if (actor.system.pm?.value < this.system.custoMP) {
+          return false;
+        }
+        break;
+        
+      case "arma":
+      case "armadura":
+        // Verificar se o ator tem proficiência (implementar lógica específica)
+        break;
+    }
+    
+    return true;
   }
 
   /**
-   * Preparar dados de magia
+   * Usar o item
    */
-  _prepareMagiaData(itemData) {
-    const data = itemData.system;
-    
-    // Garantir que magias tenham valores padrão
-    if (!data.custo) data.custo = 1;
-    if (!data.alcance) data.alcance = "Toque";
-    if (!data.duracao) data.duracao = "Instantânea";
-    if (!data.escola) data.escola = "Evocação";
-  }
-
-  /**
-   * Preparar dados de habilidade
-   */
-  _prepareHabilidadeData(itemData) {
-    const data = itemData.system;
-    
-    // Garantir que habilidades tenham valores padrão
-    if (!data.tipo) data.tipo = "Passiva";
-    if (!data.usos) data.usos = 0; // 0 = ilimitado
-    if (!data.usosAtual) data.usosAtual = data.usos;
-  }
-
-  /**
-   * Preparar dados de item genérico
-   */
-  _prepareItemData(itemData) {
-    const data = itemData.system;
-    
-    // Garantir que itens tenham valores padrão
-    if (!data.quantidade) data.quantidade = 1;
-    if (!data.peso) data.peso = 1;
-    if (!data.preco) data.preco = 0;
-  }
-
-  /**
-   * Usar/Rolar item
-   */
-  async roll() {
-    const item = this;
-    const actor = this.actor;
-    
-    if (!actor) {
-      ui.notifications.error("Este item não está associado a um ator!");
+  async use(actor, options = {}) {
+    if (!this.canUse(actor)) {
+      ui.notifications.error("Não é possível usar este item");
       return;
     }
 
-    // Chamar método específico baseado no tipo
-    switch (item.type) {
-      case 'arma':
-        return this._rollArma();
-      case 'magia':
-        return actor.usarMagia(item.id);
-      case 'habilidade':
-        return actor.usarHabilidade(item.id);
+    switch (this.type) {
+      case "magia":
+        await this._castSpell(actor, options);
+        break;
+        
+      case "equipamento":
+        await this._useEquipment(actor, options);
+        break;
+        
       default:
-        return this._mostrarItem();
+        ui.notifications.info(`Usando ${this.name}`);
     }
   }
 
   /**
-   * Rolar ataque com arma
+   * Conjurar magia
    */
-  async _rollArma() {
-    const item = this;
-    const actor = this.actor;
-    
-    // Determinar atributo baseado no tipo de arma
-    let atributo = 'fisico'; // padrão para armas corpo a corpo
-    
-    if (item.system.alcance && item.system.alcance.toLowerCase().includes('distância')) {
-      atributo = 'acao';
+  async _castSpell(actor, options) {
+    // Verificar PM
+    if (actor.system.pm.value < this.system.custoMP) {
+      ui.notifications.error("Pontos de magia insuficientes");
+      return;
     }
 
-    // Criar botões para o chat
-    const buttons = `
-      <div class="weapon-buttons">
-        <button onclick="game.actors.get('${actor.id}').rollAtributo('${atributo}', 10)">
-          Atacar (${atributo.toUpperCase()})
-        </button>
-        <button onclick="game.actors.get('${actor.id}').rollDano('${item.id}')">
-          Dano (${item.system.dano})
-        </button>
-      </div>
-    `;
-
-    const chatData = {
-      user: game.user.id,
-      speaker: ChatMessage.getSpeaker({ actor: actor }),
-      content: `
-        <div class="weapon-attack">
-          <strong>${item.name}</strong><br>
-          <em>Dano: ${item.system.dano}</em><br>
-          <em>Alcance: ${item.system.alcance}</em><br>
-          ${buttons}
-        </div>
-      `
-    };
-
-    return ChatMessage.create(chatData);
-  }
-
-  /**
-   * Mostrar item no chat
-   */
-  async _mostrarItem() {
-    const item = this;
-    const actor = this.actor;
-
-    const chatData = {
-      user: game.user.id,
-      speaker: ChatMessage.getSpeaker({ actor: actor }),
-      content: `
-        <div class="item-display">
-          <strong>${item.name}</strong><br>
-          <em>${item.system.descricao || 'Sem descrição'}</em>
-        </div>
-      `
-    };
-
-    return ChatMessage.create(chatData);
-  }
-
-  /**
-   * Método para equipar/desequipar item
-   */
-  async toggleEquip() {
-    const item = this;
-    const equipado = item.system.equipado || false;
-    
-    await item.update({
-      "system.equipado": !equipado
+    // Fazer rolagem de conjuração
+    const formula = "2d6 + @attr";
+    const roll = new Roll(formula, {
+      attr: actor.system.mental?.value || 0
     });
-    
-    const status = !equipado ? "equipado" : "desequipado";
-    ui.notifications.info(`${item.name} foi ${status}.`);
+
+    await roll.toMessage({
+      speaker: ChatMessage.getSpeaker({ actor }),
+      flavor: `Conjuração de ${this.name}`
+    });
+
+    // Se bem-sucedido, gastar PM
+    if (roll.total >= (this.system.nd || 6)) {
+      await actor.update({
+        "system.pm.value": actor.system.pm.value - this.system.custoMP
+      });
+      
+      ui.notifications.success(`${this.name} conjurada com sucesso!`);
+    } else {
+      ui.notifications.warn("Falha na conjuração da magia");
+    }
+  }
+
+  /**
+   * Usar equipamento
+   */
+  async _useEquipment(actor, options) {
+    if (this.system.consumivel) {
+      // Decrementar quantidade
+      const newQuantity = this.system.quantidade - 1;
+      if (newQuantity <= 0) {
+        await this.delete();
+        ui.notifications.info(`${this.name} foi consumido`);
+      } else {
+        await this.update({ "system.quantidade": newQuantity });
+        ui.notifications.info(`Usando ${this.name} (${newQuantity} restantes)`);
+      }
+    } else {
+      ui.notifications.info(`Usando ${this.name}`);
+    }
   }
 } 
