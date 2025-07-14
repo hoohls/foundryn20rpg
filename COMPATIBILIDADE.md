@@ -6,11 +6,11 @@ Se você está vendo o aviso **"O Sistema no URL fornecido não é compatível c
 
 1. Abra o Foundry VTT
 2. Vá em **"Configuration"** → **"Software Update"**
-3. Anote a versão atual (exemplo: `11.315`, `12.331`, etc.)
+3. Anote a versão atual (exemplo: `11.315`, `12.331`, `13.346`, etc.)
 
 ## 🎯 Passo 2: Escolher o manifest correto
 
-### Se sua versão for 11.300 ou superior (incluindo v12):
+### Se sua versão for 11.300 ou superior (incluindo v12 e v13):
 ```
 https://raw.githubusercontent.com/seu-usuario/sistema-n20-rpg/main/system.json
 ```
@@ -46,6 +46,7 @@ https://raw.githubusercontent.com/seu-usuario/sistema-n20-rpg/main/system-legacy
 | v10.291 - v11.299 | system-legacy.json | ✅ Compatível |
 | v11.300+ | system.json | ✅ Recomendado |
 | v12.x | system.json | ✅ Compatível |
+| v13.x | system.json | ✅ Compatível |
 
 ## 🆘 Ainda com problemas?
 

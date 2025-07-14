@@ -14,6 +14,9 @@ e este projeto adere ao [Versionamento Semântico](https://semver.org/spec/v2.0.
 - Integração com outros módulos
 - Ferramentas de automação
 
+### Alterado
+- Compatibilidade verificada para Foundry VTT v13.346
+
 ## [2.0.0] - 2024-01-XX
 
 ### Adicionado

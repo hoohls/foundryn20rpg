@@ -7,8 +7,8 @@ export default {
     version: '2.0.0',
     compatibility: {
       minimum: '11',
-      verified: '11',
-      maximum: '11'
+      verified: '13.346',
+      maximum: '13'
     }
   },
 

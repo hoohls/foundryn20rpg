@@ -151,7 +151,7 @@ O Foundry VTT verificará automaticamente por atualizações usando o manifest U
    - Anote a versão atual (ex: 11.315, 12.331, etc.)
 
 2. **Escolher o manifest correto:**
-   - **Foundry VTT v11.300+** ou **v12.x**: Use o manifest principal
+   - **Foundry VTT v11.300+, v12.x ou v13.x**: Use o manifest principal
      ```
      https://raw.githubusercontent.com/seu-usuario/sistema-n20-rpg/main/system.json
      ```

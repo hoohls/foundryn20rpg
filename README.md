@@ -55,7 +55,7 @@ Um sistema completo e aprimorado para RPG de mesa no Foundry VTT, baseado em 4 a
 
 ### Instalação via Manifest (Recomendado)
 
-**Para Foundry VTT v11.300+ e v12:**
+**Para Foundry VTT v11.300+, v12 e v13:**
 1. No Foundry VTT, vá para "Game Systems"
 2. Clique em "Install System"
 3. Cole o URL do manifest: 
