@@ -142,6 +142,28 @@ O Foundry VTT verificará automaticamente por atualizações usando o manifest U
 
 ## 🛠️ Solução de Problemas
 
+### Problema: "Sistema não compatível" ou "Aviso de Compatibilidade"
+**Causa:** Versão do Foundry VTT incompatível com o manifest usado.
+
+**Solução:**
+1. **Verificar versão do Foundry VTT:**
+   - No Foundry VTT, vá em "Configuration" → "Software Update"
+   - Anote a versão atual (ex: 11.315, 12.331, etc.)
+
+2. **Escolher o manifest correto:**
+   - **Foundry VTT v11.300+** ou **v12.x**: Use o manifest principal
+     ```
+     https://raw.githubusercontent.com/seu-usuario/sistema-n20-rpg/main/system.json
+     ```
+   - **Foundry VTT v10.291 - v11.299**: Use o manifest legacy
+     ```
+     https://raw.githubusercontent.com/seu-usuario/sistema-n20-rpg/main/system-legacy.json
+     ```
+
+3. **Se ainda não funcionar:**
+   - Atualize o Foundry VTT para a versão mais recente
+   - Ou use instalação manual (método 3)
+
 ### Problema: "Sistema não encontrado"
 - Verifique se o URL do manifest está correto
 - Certifique-se de que o repositório é público
@@ -151,9 +173,10 @@ O Foundry VTT verificará automaticamente por atualizações usando o manifest U
 - Verifique se a URL de download está correta
 - Certifique-se de que não há caracteres especiais no nome da pasta
 
-### Problema: "Versão incompatível"
-- Verifique a compatibilidade no `system.json`
-- Atualize o Foundry VTT se necessário
+### Problema: "Funcionalidades não carregam"
+- Verifique se todos os arquivos foram baixados corretamente
+- Recarregue a página (F5)
+- Verifique o console do navegador (F12) para erros
 
 ## 🏷️ Versionamento
 

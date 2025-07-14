@@ -4,7 +4,7 @@
   "description": "Sistema completo de RPG com 4 atributos, sistema de tokens avançado, barras de status, ferramentas de mestre e interface rica similar ao Ordem Paranormal",
   "version": "2.0.0",
   "compatibility": {
-    "minimum": "11.300",
+    "minimum": "10.291",
     "verified": "11.315",
     "maximum": "12"
   },
@@ -29,7 +29,7 @@
   "primaryTokenAttribute": "pv",
   "secondaryTokenAttribute": "pm",
   "url": "https://github.com/seu-usuario/sistema-n20-rpg",
-  "manifest": "https://raw.githubusercontent.com/seu-usuario/sistema-n20-rpg/main/system.json",
+  "manifest": "https://raw.githubusercontent.com/seu-usuario/sistema-n20-rpg/main/system-legacy.json",
   "download": "https://github.com/seu-usuario/sistema-n20-rpg/archive/refs/heads/main.zip",
   "license": "LICENSE.txt",
   "readme": "README.md",

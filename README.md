@@ -54,11 +54,22 @@ Um sistema completo e aprimorado para RPG de mesa no Foundry VTT, baseado em 4 a
 ## 🏗️ Instalação
 
 ### Instalação via Manifest (Recomendado)
+
+**Para Foundry VTT v11.300+ e v12:**
 1. No Foundry VTT, vá para "Game Systems"
 2. Clique em "Install System"
 3. Cole o URL do manifest: 
    ```
    https://raw.githubusercontent.com/seu-usuario/sistema-n20-rpg/main/system.json
+   ```
+4. Clique em "Install"
+
+**Para Foundry VTT v10.291+ (versões mais antigas):**
+1. No Foundry VTT, vá para "Game Systems"
+2. Clique em "Install System"
+3. Cole o URL do manifest alternativo: 
+   ```
+   https://raw.githubusercontent.com/seu-usuario/sistema-n20-rpg/main/system-legacy.json
    ```
 4. Clique em "Install"
 
@@ -183,6 +194,10 @@ Este sistema foi desenvolvido para ser completo e funcional. Se você quiser con
 
 ## 📞 Suporte
 
+### Problemas de Compatibilidade
+Se você está vendo erros de compatibilidade, consulte: **[COMPATIBILIDADE.md](COMPATIBILIDADE.md)**
+
+### Outros Problemas
 Para dúvidas, problemas ou sugestões:
 - Crie uma issue no GitHub
 - Contate o desenvolvedor
