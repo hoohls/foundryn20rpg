@@ -1,80 +1,178 @@
-<form class="{{cssClass}} {{actor.type}}" autocomplete="off">
-  
-  {{!-- Cabeçalho da ficha --}}
+<form class="{{cssClass}} {{actor.type}} flexcol" autocomplete="off">
+  {{!-- Sheet Header --}}
   <header class="sheet-header">
-    <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
     <div class="header-fields">
-      <h1 class="charname">
-        <input name="name" type="text" value="{{actor.name}}" placeholder="Nome do Personagem"/>
-      </h1>
-      <div class="resource-fields">
-        <div class="resource">
-          <label for="system.biografia.raca">Raça</label>
-          <input type="text" name="system.biografia.raca" value="{{system.biografia.raca}}" data-dtype="String"/>
+      <div class="profile-img">
+        <img src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
+        <div class="token-controls">
+          <a class="token-config" title="Configurar Token">
+            <i class="fas fa-cog"></i>
+          </a>
         </div>
-        <div class="resource">
-          <label for="system.biografia.classe">Classe</label>
-          <input type="text" name="system.biografia.classe" value="{{system.biografia.classe}}" data-dtype="String"/>
+      </div>
+      
+      <div class="header-details">
+        <h1 class="charname">
+          <input name="name" type="text" value="{{actor.name}}" placeholder="Nome do Personagem" maxlength="50"/>
+        </h1>
+        
+        <div class="resource-group">
+          <div class="resource hp-resource">
+            <label>Pontos de Vida</label>
+            <div class="resource-content">
+              <div class="resource-controls">
+                <button type="button" class="resource-control" data-resource="hp" data-action="decrease" data-amount="1">
+                  <i class="fas fa-minus"></i>
+                </button>
+                <input type="number" name="system.recursos.hp.value" value="{{system.recursos.hp.value}}" min="0" max="{{system.recursos.hp.max}}" data-dtype="Number"/>
+                <span class="resource-separator">/</span>
+                <input type="number" name="system.recursos.hp.max" value="{{system.recursos.hp.max}}" min="1" data-dtype="Number"/>
+                <button type="button" class="resource-control" data-resource="hp" data-action="increase" data-amount="1">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+              <div class="resource-bar">
+                <div class="bar-fill hp-bar" data-current="{{system.recursos.hp.value}}" data-max="{{system.recursos.hp.max}}"></div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="resource mp-resource">
+            <label>Pontos de Magia</label>
+            <div class="resource-content">
+              <div class="resource-controls">
+                <button type="button" class="resource-control" data-resource="mp" data-action="decrease" data-amount="1">
+                  <i class="fas fa-minus"></i>
+                </button>
+                <input type="number" name="system.recursos.mp.value" value="{{system.recursos.mp.value}}" min="0" max="{{system.recursos.mp.max}}" data-dtype="Number"/>
+                <span class="resource-separator">/</span>
+                <input type="number" name="system.recursos.mp.max" value="{{system.recursos.mp.max}}" min="0" data-dtype="Number"/>
+                <button type="button" class="resource-control" data-resource="mp" data-action="increase" data-amount="1">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+              <div class="resource-bar">
+                <div class="bar-fill mp-bar" data-current="{{system.recursos.mp.value}}" data-max="{{system.recursos.mp.max}}"></div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="resource">
-          <label for="system.biografia.alinhamento">Alinhamento</label>
-          <input type="text" name="system.biografia.alinhamento" value="{{system.biografia.alinhamento}}" data-dtype="String"/>
-        </div>
-        <div class="resource">
-          <label for="system.biografia.nivel">Nível</label>
-          <input type="number" name="system.biografia.nivel" value="{{system.biografia.nivel}}" data-dtype="Number"/>
-        </div>
-        <div class="resource">
-          <label for="system.biografia.jogador">Jogador</label>
-          <input type="text" name="system.biografia.jogador" value="{{system.biografia.jogador}}" data-dtype="String"/>
+        
+        <div class="rest-controls">
+          <button type="button" class="short-rest" title="Descanso Curto">
+            <i class="fas fa-bed"></i> Descanso Curto
+          </button>
+          <button type="button" class="long-rest" title="Descanso Longo">
+            <i class="fas fa-hotel"></i> Descanso Longo
+          </button>
         </div>
       </div>
     </div>
   </header>
 
-  {{!-- Abas da ficha --}}
+  {{!-- Sheet Tab Navigation --}}
   <nav class="sheet-tabs tabs" data-group="primary">
-    <a class="item" data-tab="principal">Principal</a>
-    <a class="item" data-tab="combate">Combate</a>
-    <a class="item" data-tab="equipamentos">Equipamentos</a>
-    <a class="item" data-tab="magias">Magias</a>
-    <a class="item" data-tab="habilidades">Habilidades</a>
-    <a class="item" data-tab="biografia">Biografia</a>
+    <a class="item" data-tab="atributos">
+      <i class="fas fa-fist-raised"></i> Atributos
+    </a>
+    <a class="item" data-tab="combate">
+      <i class="fas fa-sword"></i> Combate
+    </a>
+    <a class="item" data-tab="equipamentos">
+      <i class="fas fa-shield-alt"></i> Equipamentos
+    </a>
+    <a class="item" data-tab="magias">
+      <i class="fas fa-magic"></i> Magias
+    </a>
+    <a class="item" data-tab="habilidades">
+      <i class="fas fa-star"></i> Habilidades
+    </a>
+    <a class="item" data-tab="historia">
+      <i class="fas fa-book"></i> História
+    </a>
+    <a class="item" data-tab="efeitos">
+      <i class="fas fa-sparkles"></i> Efeitos
+    </a>
   </nav>
 
-  {{!-- Conteúdo das abas --}}
+  {{!-- Sheet Body --}}
   <section class="sheet-body">
-    
-    {{!-- Aba Principal --}}
-    <div class="tab principal" data-group="primary" data-tab="principal">
+    {{!-- Attributes Tab --}}
+    <div class="tab atributos" data-group="primary" data-tab="atributos">
       {{> "systems/sistema-n20-rpg/templates/actor/parts/actor-atributos.html"}}
-      {{> "systems/sistema-n20-rpg/templates/actor/parts/actor-combate.html"}}
     </div>
 
-    {{!-- Aba Combate --}}
+    {{!-- Combat Tab --}}
     <div class="tab combate" data-group="primary" data-tab="combate">
       {{> "systems/sistema-n20-rpg/templates/actor/parts/actor-combate.html"}}
     </div>
 
-    {{!-- Aba Equipamentos --}}
+    {{!-- Equipment Tab --}}
     <div class="tab equipamentos" data-group="primary" data-tab="equipamentos">
       {{> "systems/sistema-n20-rpg/templates/actor/parts/actor-equipamentos.html"}}
     </div>
 
-    {{!-- Aba Magias --}}
+    {{!-- Spells Tab --}}
     <div class="tab magias" data-group="primary" data-tab="magias">
       {{> "systems/sistema-n20-rpg/templates/actor/parts/actor-magias.html"}}
     </div>
 
-    {{!-- Aba Habilidades --}}
+    {{!-- Abilities Tab --}}
     <div class="tab habilidades" data-group="primary" data-tab="habilidades">
       {{> "systems/sistema-n20-rpg/templates/actor/parts/actor-habilidades.html"}}
     </div>
 
-    {{!-- Aba Biografia --}}
-    <div class="tab biografia" data-group="primary" data-tab="biografia">
+    {{!-- Biography Tab --}}
+    <div class="tab historia" data-group="primary" data-tab="historia">
       {{> "systems/sistema-n20-rpg/templates/actor/parts/actor-historia.html"}}
     </div>
 
+    {{!-- Effects Tab --}}
+    <div class="tab efeitos" data-group="primary" data-tab="efeitos">
+      <div class="effects-section">
+        <h3>Efeitos Ativos</h3>
+        
+        {{#each effects as |category key|}}
+        <div class="effect-category">
+          <h4>{{category.label}}</h4>
+          
+          <div class="effect-controls">
+            <a class="effect-control" data-action="create" data-effect-type="{{category.type}}" title="Criar Efeito">
+              <i class="fas fa-plus"></i>
+            </a>
+          </div>
+          
+          <ol class="effects-list">
+            {{#each category.effects as |effect|}}
+            <li class="effect flexrow" data-effect-id="{{effect.id}}">
+              <div class="effect-image">
+                <img src="{{effect.icon}}" alt="{{effect.label}}"/>
+              </div>
+              
+              <div class="effect-name">
+                <h4>{{effect.label}}</h4>
+                {{#if effect.duration.remaining}}
+                <span class="effect-duration">{{effect.duration.remaining}} rodadas</span>
+                {{/if}}
+              </div>
+              
+              <div class="effect-controls">
+                <a class="effect-control" data-action="edit" title="Editar Efeito">
+                  <i class="fas fa-edit"></i>
+                </a>
+                <a class="effect-control" data-action="toggle" title="{{#if effect.disabled}}Ativar{{else}}Desativar{{/if}}">
+                  <i class="fas {{#if effect.disabled}}fa-eye-slash{{else}}fa-eye{{/if}}"></i>
+                </a>
+                <a class="effect-control" data-action="delete" title="Remover Efeito">
+                  <i class="fas fa-trash"></i>
+                </a>
+              </div>
+            </li>
+            {{/each}}
+          </ol>
+        </div>
+        {{/each}}
+      </div>
+    </div>
   </section>
 </form> 

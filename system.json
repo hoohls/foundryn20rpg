@@ -1,16 +1,18 @@
 {
   "id": "sistema-n20-rpg",
   "title": "Sistema N20 RPG",
-  "description": "Sistema simples de RPG com 4 atributos e rolagem 2d6 + atributo vs dificuldade",
-  "version": "1.0.0",
+  "description": "Sistema completo de RPG com 4 atributos, sistema de tokens avançado, barras de status, ferramentas de mestre e interface rica similar ao Ordem Paranormal",
+  "version": "2.0.0",
   "compatibility": {
     "minimum": "11",
-    "verified": "11"
+    "verified": "11",
+    "maximum": "11"
   },
   "authors": [
     {
-      "name": "Autor do Sistema",
-      "email": "autor@example.com"
+      "name": "Sistema N20 RPG Team",
+      "email": "sistemaN20@rpg.com.br",
+      "url": "https://github.com/seu-usuario/sistema-n20-rpg"
     }
   ],
   "esmodules": ["module/sistema-n20-rpg.mjs"],
@@ -26,10 +28,25 @@
   "gridUnits": "m",
   "primaryTokenAttribute": "pv",
   "secondaryTokenAttribute": "pm",
-  "url": "",
-  "manifest": "",
-  "download": "",
+  "url": "https://github.com/seu-usuario/sistema-n20-rpg",
+  "manifest": "https://raw.githubusercontent.com/seu-usuario/sistema-n20-rpg/main/system.json",
+  "download": "https://github.com/seu-usuario/sistema-n20-rpg/archive/refs/heads/main.zip",
   "license": "LICENSE.txt",
   "readme": "README.md",
-  "media": []
+  "media": [
+    {
+      "type": "icon",
+      "url": "https://raw.githubusercontent.com/seu-usuario/sistema-n20-rpg/main/assets/logo.png"
+    },
+    {
+      "type": "cover",
+      "url": "https://raw.githubusercontent.com/seu-usuario/sistema-n20-rpg/main/assets/cover.jpg"
+    }
+  ],
+  "flags": {
+    "hotReload": {
+      "extensions": ["css", "html", "hbs", "json"],
+      "paths": ["css", "lang", "templates"]
+    }
+  }
 } 
