@@ -1,0 +1,111 @@
+<div class="combat-section">
+  <h2>⚔️ Combate & Progressão</h2>
+  
+  <div class="combat-grid">
+    
+    {{!-- Pontos de Vida --}}
+    <div class="combat-stat">
+      <div class="stat-header">
+        <h3>Pontos de Vida</h3>
+        <span class="stat-formula">Físico + 1d10</span>
+      </div>
+      <div class="stat-input-group">
+        <input type="number" name="system.combate.pv" value="{{system.combate.pv}}" data-dtype="Number" min="0" max="{{system.combate.pvMax}}"/>
+        <span class="separator">/</span>
+        <input type="number" name="system.combate.pvMax" value="{{system.combate.pvMax}}" data-dtype="Number" min="1"/>
+      </div>
+      <div class="stat-bar">
+        {{{progressBar system.combate.pv system.combate.pvMax}}}
+      </div>
+    </div>
+
+    {{!-- Defesa --}}
+    <div class="combat-stat">
+      <div class="stat-header">
+        <h3>Defesa</h3>
+        <span class="stat-formula">10 + Ação + Armadura</span>
+      </div>
+      <div class="stat-value">
+        <span class="large-number">{{system.combate.defesa}}</span>
+      </div>
+      <div class="stat-breakdown">
+        <small>
+          Base: 10 + Ação: {{numberFormat system.atributos.acao.mod}} + Armadura: {{system.combate.armadura}}
+        </small>
+      </div>
+    </div>
+
+    {{!-- Proteção --}}
+    <div class="combat-stat">
+      <div class="stat-header">
+        <h3>Proteção</h3>
+        <span class="stat-formula">Valor da Armadura</span>
+      </div>
+      <div class="stat-input-group">
+        <input type="number" name="system.combate.protecao" value="{{system.combate.protecao}}" data-dtype="Number" min="0"/>
+      </div>
+      <div class="stat-description">
+        <small>Reduz dano recebido</small>
+      </div>
+    </div>
+
+    {{!-- Pontos de Magia --}}
+    {{#ifGreater system.atributos.mental.valor 0}}
+    <div class="combat-stat">
+      <div class="stat-header">
+        <h3>Pontos de Magia</h3>
+        <span class="stat-formula">Mental × 2</span>
+      </div>
+      <div class="stat-input-group">
+        <input type="number" name="system.combate.pm" value="{{system.combate.pm}}" data-dtype="Number" min="0" max="{{system.combate.pmMax}}"/>
+        <span class="separator">/</span>
+        <input type="number" name="system.combate.pmMax" value="{{system.combate.pmMax}}" data-dtype="Number" min="0"/>
+      </div>
+      <div class="stat-bar">
+        {{{progressBar system.combate.pm system.combate.pmMax}}}
+      </div>
+    </div>
+    {{/ifGreater}}
+
+  </div>
+
+  {{!-- Pontos de Experiência --}}
+  <div class="experience-section">
+    <h3>Pontos de Experiência</h3>
+    <div class="experience-input">
+      <input type="number" name="system.combate.pontos_experiencia" value="{{system.combate.pontos_experiencia}}" data-dtype="Number" min="0"/>
+      <span class="xp-label">XP</span>
+    </div>
+    <div class="level-info">
+      <small>Nível {{system.biografia.nivel}} | Próximo nível: {{multiply system.biografia.nivel 1000}} XP</small>
+    </div>
+  </div>
+
+  {{!-- Resumo Rápido de Regras --}}
+  <div class="rules-summary">
+    <h3>Resumo Rápido de Regras</h3>
+    <div class="rules-grid">
+      <div class="rule-item">
+        <strong>Sequência de Turno:</strong>
+        <ol>
+          <li>Iniciativa: 2d6 + Ação</li>
+          <li>Declarar Ação: O que o personagem vai fazer</li>
+          <li>Resolver Ataques: Teste de ataque vs Proteção</li>
+          <li>Aplicar Efeitos: Dano, estados, condições</li>
+          <li>Próximo Turno</li>
+        </ol>
+      </div>
+      <div class="rule-item">
+        <strong>Fórmulas Essenciais:</strong>
+        <ul>
+          <li>Ataque: 2d6 + Atributo + Modificadores</li>
+          <li>Defesa: 10 + Ação + Armadura</li>
+          <li>Dano: Reduzido pela Proteção</li>
+          <li>Pontos de Vida: Físico + 1d10</li>
+          <li>Pontos de Magia: Mental × 2</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div> 

@@ -1,0 +1,129 @@
+<form class="{{cssClass}} {{item.type}}" autocomplete="off">
+  
+  {{!-- Cabeçalho da ficha --}}
+  <header class="sheet-header">
+    <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" width="64" height="64"/>
+    <div class="header-fields">
+      <h1 class="item-name">
+        <input name="name" type="text" value="{{item.name}}" placeholder="Nome da Habilidade"/>
+      </h1>
+      <div class="item-subtitle">
+        <span>{{system.categoria}} | {{#if system.usos}}{{system.usosAtual}}/{{system.usos}} usos{{else}}Ilimitado{{/if}}</span>
+      </div>
+    </div>
+  </header>
+
+  {{!-- Abas da ficha --}}
+  <nav class="sheet-tabs tabs" data-group="primary">
+    <a class="item" data-tab="description">Descrição</a>
+    <a class="item" data-tab="details">Detalhes</a>
+  </nav>
+
+  {{!-- Conteúdo das abas --}}
+  <section class="sheet-body">
+    
+    {{!-- Aba Descrição --}}
+    <div class="tab description" data-group="primary" data-tab="description">
+      <div class="description-section">
+        <h3>📝 Descrição</h3>
+        <textarea name="system.descricao" rows="6" placeholder="Descreva o que a habilidade faz...">{{system.descricao}}</textarea>
+      </div>
+      
+      <div class="ability-basics">
+        <h3>🌟 Informações Básicas</h3>
+        <div class="basics-grid">
+          <div class="basic-item">
+            <label for="system.categoria">Categoria</label>
+            <select name="system.categoria" data-dtype="String">
+              {{#each tipoHabilidadeOptions}}
+              <option value="{{value}}" {{#ifEquals ../system.categoria value}}selected{{/ifEquals}}>{{label}}</option>
+              {{/each}}
+            </select>
+          </div>
+          <div class="basic-item">
+            <label for="system.fonte">Fonte</label>
+            <select name="system.fonte" data-dtype="String">
+              <option value="classe" {{#ifEquals system.fonte "classe"}}selected{{/ifEquals}}>Classe</option>
+              <option value="raca" {{#ifEquals system.fonte "raca"}}selected{{/ifEquals}}>Raça</option>
+              <option value="treinamento" {{#ifEquals system.fonte "treinamento"}}selected{{/ifEquals}}>Treinamento</option>
+              <option value="talento" {{#ifEquals system.fonte "talento"}}selected{{/ifEquals}}>Talento</option>
+              <option value="magico" {{#ifEquals system.fonte "magico"}}selected{{/ifEquals}}>Mágico</option>
+              <option value="outro" {{#ifEquals system.fonte "outro"}}selected{{/ifEquals}}>Outro</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      
+      <div class="ability-prerequisites">
+        <h3>📋 Pré-requisitos</h3>
+        <textarea name="system.prerequisitos" rows="2" placeholder="Liste os pré-requisitos para esta habilidade...">{{system.prerequisitos}}</textarea>
+      </div>
+    </div>
+
+    {{!-- Aba Detalhes --}}
+    <div class="tab details" data-group="primary" data-tab="details">
+      <div class="ability-usage">
+        <h3>🔄 Uso da Habilidade</h3>
+        <div class="usage-grid">
+          <div class="usage-item">
+            <label for="system.usos">Usos Totais</label>
+            <input type="number" name="system.usos" value="{{system.usos}}" min="0" placeholder="0 = Ilimitado"/>
+          </div>
+          <div class="usage-item">
+            <label for="system.usosAtual">Usos Restantes</label>
+            <input type="number" name="system.usosAtual" value="{{system.usosAtual}}" min="0" max="{{system.usos}}"/>
+          </div>
+        </div>
+        
+        <div class="usage-info">
+          <p><strong>Dica:</strong> Deixe "Usos Totais" em 0 para habilidades ilimitadas (como habilidades passivas).</p>
+          <p><strong>Categoria:</strong> Passiva = sempre ativa | Ativa = deve ser ativada | Reação = resposta a eventos | Movimento = durante movimento</p>
+        </div>
+      </div>
+      
+      <div class="ability-mechanics">
+        <h3>⚙️ Mecânicas da Habilidade</h3>
+        <div class="mechanics-grid">
+          <div class="mechanic-item">
+            <label for="system.ativacao">Ativação</label>
+            <select name="system.ativacao" data-dtype="String">
+              <option value="livre" {{#ifEquals system.ativacao "livre"}}selected{{/ifEquals}}>Ação Livre</option>
+              <option value="movimento" {{#ifEquals system.ativacao "movimento"}}selected{{/ifEquals}}>Ação de Movimento</option>
+              <option value="padrao" {{#ifEquals system.ativacao "padrao"}}selected{{/ifEquals}}>Ação Padrão</option>
+              <option value="completa" {{#ifEquals system.ativacao "completa"}}selected{{/ifEquals}}>Ação Completa</option>
+              <option value="reacao" {{#ifEquals system.ativacao "reacao"}}selected{{/ifEquals}}>Reação</option>
+              <option value="passiva" {{#ifEquals system.ativacao "passiva"}}selected{{/ifEquals}}>Passiva</option>
+            </select>
+          </div>
+          <div class="mechanic-item">
+            <label for="system.duracao">Duração</label>
+            <input type="text" name="system.duracao" value="{{system.duracao}}" placeholder="Ex: Instantâneo, 1 minuto, Permanente"/>
+          </div>
+          <div class="mechanic-item">
+            <label for="system.alcance">Alcance</label>
+            <input type="text" name="system.alcance" value="{{system.alcance}}" placeholder="Ex: Pessoal, Toque, 9 metros"/>
+          </div>
+          <div class="mechanic-item">
+            <label for="system.area">Área de Efeito</label>
+            <input type="text" name="system.area" value="{{system.area}}" placeholder="Ex: Um alvo, Cone de 9m, Explosão de 6m"/>
+          </div>
+        </div>
+      </div>
+      
+      <div class="test-section">
+        <h3>🎲 Testes</h3>
+        <div class="test-buttons">
+          <button type="button" class="reset-uses">
+            <i class="fas fa-redo"></i> Resetar Usos
+          </button>
+        </div>
+        <div class="test-info">
+          <p><strong>Usos Restantes:</strong> {{system.usosAtual}}/{{system.usos}}</p>
+          <p><strong>Categoria:</strong> {{system.categoria}}</p>
+          <p><strong>Fonte:</strong> {{system.fonte}}</p>
+        </div>
+      </div>
+    </div>
+
+  </section>
+</form> 

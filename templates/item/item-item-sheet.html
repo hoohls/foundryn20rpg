@@ -1,0 +1,130 @@
+<form class="{{cssClass}} {{item.type}}" autocomplete="off">
+  
+  {{!-- Cabeçalho da ficha --}}
+  <header class="sheet-header">
+    <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" width="64" height="64"/>
+    <div class="header-fields">
+      <h1 class="item-name">
+        <input name="name" type="text" value="{{item.name}}" placeholder="Nome do Item"/>
+      </h1>
+      <div class="item-subtitle">
+        <span>{{system.categoria}} | Quantidade: {{system.quantidade}}</span>
+      </div>
+    </div>
+  </header>
+
+  {{!-- Abas da ficha --}}
+  <nav class="sheet-tabs tabs" data-group="primary">
+    <a class="item" data-tab="description">Descrição</a>
+    <a class="item" data-tab="details">Detalhes</a>
+  </nav>
+
+  {{!-- Conteúdo das abas --}}
+  <section class="sheet-body">
+    
+    {{!-- Aba Descrição --}}
+    <div class="tab description" data-group="primary" data-tab="description">
+      <div class="description-section">
+        <h3>📝 Descrição</h3>
+        <textarea name="system.descricao" rows="6" placeholder="Descreva o item...">{{system.descricao}}</textarea>
+      </div>
+      
+      <div class="item-basics">
+        <h3>📦 Informações Básicas</h3>
+        <div class="basics-grid">
+          <div class="basic-item">
+            <label for="system.categoria">Categoria</label>
+            <select name="system.categoria" data-dtype="String">
+              {{#each tipoItemOptions}}
+              <option value="{{value}}" {{#ifEquals ../system.categoria value}}selected{{/ifEquals}}>{{label}}</option>
+              {{/each}}
+            </select>
+          </div>
+          <div class="basic-item">
+            <label for="system.consumivel">Consumível</label>
+            <input type="checkbox" name="system.consumivel" {{#if system.consumivel}}checked{{/if}}/>
+          </div>
+        </div>
+      </div>
+      
+      <div class="item-effect">
+        <h3>✨ Efeito</h3>
+        <textarea name="system.efeito" rows="4" placeholder="Descreva o efeito ou uso do item...">{{system.efeito}}</textarea>
+      </div>
+    </div>
+
+    {{!-- Aba Detalhes --}}
+    <div class="tab details" data-group="primary" data-tab="details">
+      <div class="item-properties">
+        <h3>🏷️ Propriedades do Item</h3>
+        <div class="properties-grid">
+          <div class="property-item">
+            <label for="system.quantidade">Quantidade</label>
+            <input type="number" name="system.quantidade" value="{{system.quantidade}}" min="1"/>
+          </div>
+          <div class="property-item">
+            <label for="system.peso">Peso (kg)</label>
+            <input type="number" name="system.peso" value="{{system.peso}}" step="0.1" min="0"/>
+          </div>
+          <div class="property-item">
+            <label for="system.preco">Preço (moedas de cobre)</label>
+            <input type="number" name="system.preco" value="{{system.preco}}" min="0"/>
+          </div>
+          <div class="property-item">
+            <label for="system.raridade">Raridade</label>
+            <select name="system.raridade" data-dtype="String">
+              <option value="comum" {{#ifEquals system.raridade "comum"}}selected{{/ifEquals}}>Comum</option>
+              <option value="incomum" {{#ifEquals system.raridade "incomum"}}selected{{/ifEquals}}>Incomum</option>
+              <option value="raro" {{#ifEquals system.raridade "raro"}}selected{{/ifEquals}}>Raro</option>
+              <option value="muito-raro" {{#ifEquals system.raridade "muito-raro"}}selected{{/ifEquals}}>Muito Raro</option>
+              <option value="lendario" {{#ifEquals system.raridade "lendario"}}selected{{/ifEquals}}>Lendário</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      
+      <div class="item-usage">
+        <h3>🔧 Uso do Item</h3>
+        <div class="usage-grid">
+          <div class="usage-item">
+            <label for="system.usos">Usos (se aplicável)</label>
+            <input type="number" name="system.usos" value="{{system.usos}}" min="0" placeholder="0 = Ilimitado"/>
+          </div>
+          <div class="usage-item">
+            <label for="system.usosAtual">Usos Restantes</label>
+            <input type="number" name="system.usosAtual" value="{{system.usosAtual}}" min="0" max="{{system.usos}}"/>
+          </div>
+        </div>
+        
+        <div class="usage-info">
+          <p><strong>Dica:</strong> Use "Usos" para itens que se esgotam com o tempo (como poções, pergaminhos, etc.).</p>
+          <p><strong>Consumível:</strong> {{#if system.consumivel}}Este item é consumido ao ser usado{{else}}Este item não é consumido ao ser usado{{/if}}</p>
+        </div>
+      </div>
+      
+      <div class="item-stats">
+        <h3>📊 Estatísticas</h3>
+        <div class="stats-grid">
+          <div class="stat-item">
+            <strong>Peso Total:</strong> {{multiply system.quantidade system.peso}} kg
+          </div>
+          <div class="stat-item">
+            <strong>Valor Total:</strong> {{multiply system.quantidade system.preco}} moedas de cobre
+          </div>
+          <div class="stat-item">
+            <strong>Categoria:</strong> {{system.categoria}}
+          </div>
+          <div class="stat-item">
+            <strong>Raridade:</strong> {{system.raridade}}
+          </div>
+        </div>
+      </div>
+      
+      <div class="item-notes">
+        <h3>📝 Observações</h3>
+        <textarea name="system.observacoes" rows="3" placeholder="Observações adicionais sobre o item...">{{system.observacoes}}</textarea>
+      </div>
+    </div>
+
+  </section>
+</form> 

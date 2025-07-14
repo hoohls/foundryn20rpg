@@ -1,0 +1,35 @@
+{
+  "id": "sistema-n20-rpg",
+  "title": "Sistema N20 RPG",
+  "description": "Sistema simples de RPG com 4 atributos e rolagem 2d6 + atributo vs dificuldade",
+  "version": "1.0.0",
+  "compatibility": {
+    "minimum": "11",
+    "verified": "11"
+  },
+  "authors": [
+    {
+      "name": "Autor do Sistema",
+      "email": "autor@example.com"
+    }
+  ],
+  "esmodules": ["module/sistema-n20-rpg.mjs"],
+  "styles": ["css/sistema-n20-rpg.css"],
+  "languages": [
+    {
+      "lang": "pt-BR",
+      "name": "Português (Brasil)",
+      "path": "lang/pt-BR.json"
+    }
+  ],
+  "gridDistance": 5,
+  "gridUnits": "m",
+  "primaryTokenAttribute": "pv",
+  "secondaryTokenAttribute": "pm",
+  "url": "",
+  "manifest": "",
+  "download": "",
+  "license": "LICENSE.txt",
+  "readme": "README.md",
+  "media": []
+} 

@@ -1,0 +1,133 @@
+<form class="{{cssClass}} {{item.type}}" autocomplete="off">
+  
+  {{!-- Cabeçalho da ficha --}}
+  <header class="sheet-header">
+    <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" width="64" height="64"/>
+    <div class="header-fields">
+      <h1 class="item-name">
+        <input name="name" type="text" value="{{item.name}}" placeholder="Nome da Armadura"/>
+      </h1>
+      <div class="item-subtitle">
+        <span>{{system.categoria}} | Proteção: {{system.protecao}}</span>
+      </div>
+    </div>
+  </header>
+
+  {{!-- Abas da ficha --}}
+  <nav class="sheet-tabs tabs" data-group="primary">
+    <a class="item" data-tab="description">Descrição</a>
+    <a class="item" data-tab="details">Detalhes</a>
+  </nav>
+
+  {{!-- Conteúdo das abas --}}
+  <section class="sheet-body">
+    
+    {{!-- Aba Descrição --}}
+    <div class="tab description" data-group="primary" data-tab="description">
+      <div class="description-section">
+        <h3>📝 Descrição</h3>
+        <textarea name="system.descricao" rows="4" placeholder="Descreva a armadura...">{{system.descricao}}</textarea>
+      </div>
+      
+      <div class="armor-stats">
+        <h3>🛡️ Estatísticas da Armadura</h3>
+        <div class="stats-grid">
+          <div class="stat-item">
+            <label for="system.protecao">Proteção</label>
+            <input type="number" name="system.protecao" value="{{system.protecao}}" min="0"/>
+          </div>
+          <div class="stat-item">
+            <label for="system.penalidade">Penalidade</label>
+            <input type="number" name="system.penalidade" value="{{system.penalidade}}" min="0"/>
+          </div>
+          <div class="stat-item">
+            <label for="system.categoria">Categoria</label>
+            <select name="system.categoria" data-dtype="String">
+              {{#each tipoArmaduraOptions}}
+              <option value="{{value}}" {{#ifEquals ../system.categoria value}}selected{{/ifEquals}}>{{label}}</option>
+              {{/each}}
+            </select>
+          </div>
+          <div class="stat-item">
+            <label for="system.equipado">Equipado</label>
+            <input type="checkbox" name="system.equipado" {{#if system.equipado}}checked{{/if}}/>
+          </div>
+        </div>
+      </div>
+      
+      <div class="armor-coverage">
+        <h3>📍 Cobertura</h3>
+        <div class="coverage-grid">
+          <div class="coverage-item">
+            <label for="system.cobertura">Área Coberta</label>
+            <select name="system.cobertura" data-dtype="String">
+              <option value="cabeca" {{#ifEquals system.cobertura "cabeca"}}selected{{/ifEquals}}>Cabeça</option>
+              <option value="torso" {{#ifEquals system.cobertura "torso"}}selected{{/ifEquals}}>Torso</option>
+              <option value="bracos" {{#ifEquals system.cobertura "bracos"}}selected{{/ifEquals}}>Braços</option>
+              <option value="pernas" {{#ifEquals system.cobertura "pernas"}}selected{{/ifEquals}}>Pernas</option>
+              <option value="completa" {{#ifEquals system.cobertura "completa"}}selected{{/ifEquals}}>Completa</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {{!-- Aba Detalhes --}}
+    <div class="tab details" data-group="primary" data-tab="details">
+      <div class="physical-properties">
+        <h3>🏺 Propriedades Físicas</h3>
+        <div class="physical-grid">
+          <div class="physical-item">
+            <label for="system.peso">Peso (kg)</label>
+            <input type="number" name="system.peso" value="{{system.peso}}" step="0.1" min="0"/>
+          </div>
+          <div class="physical-item">
+            <label for="system.preco">Preço (moedas de cobre)</label>
+            <input type="number" name="system.preco" value="{{system.preco}}" min="0"/>
+          </div>
+          <div class="physical-item">
+            <label for="system.raridade">Raridade</label>
+            <select name="system.raridade" data-dtype="String">
+              <option value="comum" {{#ifEquals system.raridade "comum"}}selected{{/ifEquals}}>Comum</option>
+              <option value="incomum" {{#ifEquals system.raridade "incomum"}}selected{{/ifEquals}}>Incomum</option>
+              <option value="raro" {{#ifEquals system.raridade "raro"}}selected{{/ifEquals}}>Raro</option>
+              <option value="muito-raro" {{#ifEquals system.raridade "muito-raro"}}selected{{/ifEquals}}>Muito Raro</option>
+              <option value="lendario" {{#ifEquals system.raridade "lendario"}}selected{{/ifEquals}}>Lendário</option>
+            </select>
+          </div>
+          <div class="physical-item">
+            <label for="system.material">Material</label>
+            <input type="text" name="system.material" value="{{system.material}}" placeholder="Couro"/>
+          </div>
+          <div class="physical-item">
+            <label for="system.durabilidade">Durabilidade</label>
+            <input type="number" name="system.durabilidade" value="{{system.durabilidade}}" min="0" max="{{system.durabilidadeMax}}"/>
+          </div>
+          <div class="physical-item">
+            <label for="system.durabilidadeMax">Durabilidade Máxima</label>
+            <input type="number" name="system.durabilidadeMax" value="{{system.durabilidadeMax}}" min="1"/>
+          </div>
+        </div>
+      </div>
+      
+      <div class="armor-info">
+        <h3>ℹ️ Informações da Armadura</h3>
+        <div class="info-grid">
+          <div class="info-item">
+            <strong>Proteção:</strong> Reduz {{system.protecao}} pontos de dano
+          </div>
+          <div class="info-item">
+            <strong>Penalidade:</strong> {{#if system.penalidade}}-{{system.penalidade}} em testes de Ação{{else}}Nenhuma{{/if}}
+          </div>
+          <div class="info-item">
+            <strong>Categoria:</strong> {{system.categoria}}
+          </div>
+          <div class="info-item">
+            <strong>Material:</strong> {{system.material}}
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+</form> 

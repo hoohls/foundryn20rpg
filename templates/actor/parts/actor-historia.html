@@ -1,0 +1,99 @@
+<div class="biography-section">
+  <h2>📖 História & Personalidade</h2>
+  
+  {{!-- Seção de Descrição Física --}}
+  <div class="physical-description">
+    <h3>👤 Descrição Física</h3>
+    <div class="text-area">
+      <textarea name="system.biografia.descricaoFisica" rows="4" placeholder="Descreva a aparência física do personagem...">{{system.biografia.descricaoFisica}}</textarea>
+    </div>
+  </div>
+
+  {{!-- Seção de Personalidade & Traços --}}
+  <div class="personality-section">
+    <h3>🎭 Personalidade & Traços</h3>
+    <div class="text-area">
+      <textarea name="system.biografia.personalidade" rows="4" placeholder="Descreva a personalidade, traços e características do personagem...">{{system.biografia.personalidade}}</textarea>
+    </div>
+  </div>
+
+  {{!-- Seção de História Pessoal --}}
+  <div class="personal-history">
+    <h3>📚 História Pessoal</h3>
+    <div class="text-area">
+      <textarea name="system.biografia.historia" rows="6" placeholder="Conte a história de vida do personagem, sua origem, eventos importantes...">{{system.biografia.historia}}</textarea>
+    </div>
+  </div>
+
+  {{!-- Seção de Objetivos & Motivações --}}
+  <div class="objectives-section">
+    <h3>🎯 Objetivos & Motivações</h3>
+    <div class="text-area">
+      <textarea name="system.biografia.objetivos" rows="4" placeholder="Quais são os objetivos, sonhos e motivações do personagem...">{{system.biografia.objetivos}}</textarea>
+    </div>
+  </div>
+
+  {{!-- Seção de Anotações --}}
+  <div class="notes-section">
+    <h3>📝 Anotações</h3>
+    <div class="text-area">
+      <textarea name="system.biografia.anotacoes" rows="6" placeholder="Anotações gerais, lembretes, informações importantes...">{{system.biografia.anotacoes}}</textarea>
+    </div>
+  </div>
+
+  {{!-- Informações Rápidas --}}
+  <div class="quick-info">
+    <h3>ℹ️ Informações Rápidas</h3>
+    <div class="info-grid">
+      <div class="info-item">
+        <label for="system.biografia.idade">Idade</label>
+        <input type="text" name="system.biografia.idade" value="{{system.biografia.idade}}" placeholder="Ex: 25 anos"/>
+      </div>
+      <div class="info-item">
+        <label for="system.biografia.raca">Raça</label>
+        <input type="text" name="system.biografia.raca" value="{{system.biografia.raca}}" placeholder="Ex: Humano"/>
+      </div>
+      <div class="info-item">
+        <label for="system.biografia.classe">Classe/Função</label>
+        <input type="text" name="system.biografia.classe" value="{{system.biografia.classe}}" placeholder="Ex: Guerreiro"/>
+      </div>
+      <div class="info-item">
+        <label for="system.biografia.alinhamento">Alinhamento</label>
+        <input type="text" name="system.biografia.alinhamento" value="{{system.biografia.alinhamento}}" placeholder="Ex: Neutro"/>
+      </div>
+      <div class="info-item">
+        <label for="system.biografia.jogador">Jogador</label>
+        <input type="text" name="system.biografia.jogador" value="{{system.biografia.jogador}}" placeholder="Nome do jogador"/>
+      </div>
+      <div class="info-item">
+        <label for="system.biografia.nivel">Nível</label>
+        <input type="number" name="system.biografia.nivel" value="{{system.biografia.nivel}}" min="1" max="20"/>
+      </div>
+    </div>
+  </div>
+
+  {{!-- Resumo da Biografia --}}
+  <div class="biography-summary">
+    <h3>📊 Resumo da Biografia</h3>
+    <div class="summary-card">
+      <div class="summary-row">
+        <strong>Nome:</strong> {{actor.name}}
+      </div>
+      <div class="summary-row">
+        <strong>Raça/Classe:</strong> {{system.biografia.raca}} {{system.biografia.classe}}
+      </div>
+      <div class="summary-row">
+        <strong>Nível:</strong> {{system.biografia.nivel}}
+      </div>
+      <div class="summary-row">
+        <strong>Alinhamento:</strong> {{system.biografia.alinhamento}}
+      </div>
+      {{#if system.biografia.jogador}}
+      <div class="summary-row">
+        <strong>Jogador:</strong> {{system.biografia.jogador}}
+      </div>
+      {{/if}}
+    </div>
+  </div>
+
+</div> 

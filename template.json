@@ -1,0 +1,137 @@
+{
+  "Actor": {
+    "types": ["personagem", "npc", "monstro"],
+    "templates": {
+      "base": {
+        "biografia": {
+          "idade": "",
+          "raca": "",
+          "classe": "",
+          "alinhamento": "",
+          "nivel": 1,
+          "jogador": "",
+          "descricaoFisica": "",
+          "personalidade": "",
+          "historia": "",
+          "objetivos": "",
+          "anotacoes": ""
+        },
+        "atributos": {
+          "fisico": {
+            "valor": 10,
+            "mod": 0
+          },
+          "mental": {
+            "valor": 10,
+            "mod": 0
+          },
+          "social": {
+            "valor": 10,
+            "mod": 0
+          },
+          "acao": {
+            "valor": 10,
+            "mod": 0
+          }
+        },
+        "combate": {
+          "pv": 20,
+          "pvMax": 20,
+          "pm": 0,
+          "pmMax": 0,
+          "defesa": 10,
+          "protecao": 0,
+          "armadura": 0,
+          "pontos_experiencia": 0
+        },
+        "recursos": {
+          "moedas": {
+            "ouro": 0,
+            "prata": 0,
+            "cobre": 0
+          }
+        }
+      }
+    },
+    "personagem": {
+      "templates": ["base"],
+      "habilidades_especiais": []
+    },
+    "npc": {
+      "templates": ["base"],
+      "tipo": "npc",
+      "comportamento": "neutro",
+      "importancia": "menor"
+    },
+    "monstro": {
+      "templates": ["base"],
+      "tipo": "monstro",
+      "nd": 1,
+      "tamanho": "médio",
+      "tipo_criatura": "humanoide",
+      "instinto": "neutro"
+    }
+  },
+  "Item": {
+    "types": ["arma", "armadura", "magia", "habilidade", "item"],
+    "templates": {
+      "base": {
+        "descricao": "",
+        "equipado": false,
+        "quantidade": 1
+      },
+      "equipamento": {
+        "peso": 0,
+        "preco": 0,
+        "raridade": "comum"
+      },
+      "fisico": {
+        "durabilidade": 100,
+        "durabilidadeMax": 100,
+        "material": "ferro"
+      }
+    },
+    "arma": {
+      "templates": ["base", "equipamento", "fisico"],
+      "tipo": "arma",
+      "dano": "1d6",
+      "alcance": "Corpo a corpo",
+      "categoria": "simples",
+      "propriedades": []
+    },
+    "armadura": {
+      "templates": ["base", "equipamento", "fisico"],
+      "tipo": "armadura",
+      "protecao": 1,
+      "penalidade": 0,
+      "categoria": "leve",
+      "cobertura": "torso"
+    },
+    "magia": {
+      "templates": ["base"],
+      "tipo": "magia",
+      "escola": "evocacao",
+      "custo": 1,
+      "alcance": "Toque",
+      "duracao": "Instantânea",
+      "componentes": "verbal",
+      "efeito": ""
+    },
+    "habilidade": {
+      "templates": ["base"],
+      "tipo": "habilidade",
+      "categoria": "passiva",
+      "prerequisitos": "",
+      "usos": 0,
+      "usosAtual": 0,
+      "fonte": "classe"
+    },
+    "item": {
+      "templates": ["base", "equipamento"],
+      "tipo": "item",
+      "categoria": "equipamento",
+      "consumivel": false,
+      "efeito": ""
+    }
+  }
+} 
